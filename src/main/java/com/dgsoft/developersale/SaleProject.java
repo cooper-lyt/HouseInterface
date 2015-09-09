@@ -151,4 +151,20 @@ public class SaleProject implements ProjectInfo {
     public void setSectionCode(String sectionCode) {
         this.sectionCode = sectionCode;
     }
+
+    public List<ProjectSellCard> getProjectSellCardList() {
+        return projectSellCardList;
+    }
+
+    public void setProjectSellCardList(List<ProjectSellCard> projectSellCardList) {
+        this.projectSellCardList = projectSellCardList;
+    }
+
+    public List<SaleBuild> getSaleBuildList(){
+        List<SaleBuild> result = new ArrayList<SaleBuild>();
+        for(ProjectSellCard sellCard: getProjectSellCardList()){
+            result.addAll(sellCard.getSaleBuildList());
+        }
+        return result;
+    }
 }

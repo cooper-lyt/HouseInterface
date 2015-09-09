@@ -2,6 +2,7 @@ package com.dgsoft.developersale;
 
 import com.dgsoft.developersale.wsinterface.DESUtil;
 import com.dgsoft.developersale.wsinterface.DeveloperServiceService;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -19,14 +20,14 @@ public abstract class DeveloperSaleService {
         webService = new DeveloperServiceService(getWsdlLocation());
     }
 
-    public LogonInfo logon(String userKey, String userId, String password, String random) {
+    public LogonInfo logon(String userId, String password, String random) {
 
         try {
             String data = webService.getDeveloperServicePort().logon(userId, password, random);
             if (data == null) {
                 return null;
             }
-            String resultStr = DESUtil.decrypt(data, userKey);
+            String resultStr = DESUtil.decrypt(data, userId);
 
             JSONObject resultJsonObject = new JSONObject(resultStr);
 
@@ -44,6 +45,7 @@ public abstract class DeveloperSaleService {
             return result;
 
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
