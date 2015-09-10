@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by cooper on 9/7/15.
  */
-public class SaleBuildGridMap implements BuildGridMapInfo {
+public class SaleBuildGridMap implements BuildGridMapInfo,java.io.Serializable {
 
     private String name;
 

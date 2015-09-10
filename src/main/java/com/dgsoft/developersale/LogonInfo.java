@@ -3,7 +3,7 @@ package com.dgsoft.developersale;
 /**
  * Created by cooper on 9/7/15.
  */
-public class LogonInfo {
+public class LogonInfo implements java.io.Serializable{
 
     private LogonStatus logonStatus;
 

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by cooper on 9/5/15.
  */
-public class ProjectSellCard {
+public class ProjectSellCard implements  java.io.Serializable{
 
     private ProjectSellType cardType;
     private String  cardNumber;

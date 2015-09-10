@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by cooper on 9/7/15.
  */
-public class SaleBuildGridMapRow implements BuildGridMapRowInfo {
+public class SaleBuildGridMapRow implements BuildGridMapRowInfo,java.io.Serializable {
 
     private String title;
     private List<BuildGridMapBlockInfo> blocks;

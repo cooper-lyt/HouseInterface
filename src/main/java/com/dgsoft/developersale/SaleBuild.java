@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by cooper on 9/4/15.
  */
-public class SaleBuild implements BuildInfo {
+public class SaleBuild implements BuildInfo , java.io.Serializable{
 
     private String buildName;
     private String buildCode;

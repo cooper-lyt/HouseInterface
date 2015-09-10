@@ -7,7 +7,7 @@ import org.json.JSONObject;
 /**
  * Created by cooper on 9/7/15.
  */
-public class SaleBuildGridMapTitle implements BuildGridMapTitleInfo {
+public class SaleBuildGridMapTitle implements BuildGridMapTitleInfo,java.io.Serializable {
 
     private String title;
 

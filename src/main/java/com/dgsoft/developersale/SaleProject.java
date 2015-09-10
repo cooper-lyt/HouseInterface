@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by cooper on 9/5/15.
  */
-public class SaleProject implements ProjectInfo {
+public class SaleProject implements ProjectInfo ,java.io.Serializable{
 
 
     private String developerName;

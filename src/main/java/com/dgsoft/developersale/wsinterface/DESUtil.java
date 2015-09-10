@@ -40,8 +40,7 @@ public class DESUtil {
      * @throws IOException
      * @throws Exception
      */
-    public static String decrypt(String data, String key) throws IOException,
-            Exception {
+    public static String decrypt(String data, String key) throws Exception {
         if (data == null)
             return null;
         BASE64Decoder decoder = new BASE64Decoder();

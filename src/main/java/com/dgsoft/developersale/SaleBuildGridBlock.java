@@ -8,7 +8,7 @@ import org.json.JSONObject;
 /**
  * Created by cooper on 9/7/15.
  */
-public class SaleBuildGridBlock implements BuildGridMapBlockInfo {
+public class SaleBuildGridBlock implements BuildGridMapBlockInfo ,java.io.Serializable{
 
     private int colspan;
 

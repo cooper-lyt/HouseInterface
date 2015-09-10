@@ -2,7 +2,13 @@ package com.dgsoft.developersale;
 
 import com.dgsoft.developersale.wsinterface.DESUtil;
 import com.dgsoft.developersale.wsinterface.DeveloperServiceService;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -45,6 +51,27 @@ public abstract class DeveloperSaleService {
             return result;
 
         } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<SaleBuildGridMap> getBuildGridMap(String buildCode){
+
+        String data = webService.getDeveloperServicePort().getBuildGridMap(buildCode);
+        if (data == null){
+            return null;
+        }
+        try {
+
+            JSONArray buildJsonArray = new JSONArray(data);
+            List<SaleBuildGridMap> result = new ArrayList<SaleBuildGridMap>(buildJsonArray.length());
+            for (int i = 0 ; i < buildJsonArray.length(); i++){
+                result.add(new SaleBuildGridMap(buildJsonArray.getJSONObject(i)));
+            }
+            return result;
+
+        } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
