@@ -46,6 +46,23 @@ public interface DeveloperService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchPledgeInfo", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.SearchPledgeInfo")
+    @ResponseWrapper(localName = "searchPledgeInfoResponse", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.SearchPledgeInfoResponse")
+    public String searchPledgeInfo(
+            @WebParam(name = "arg0", targetNamespace = "")
+            String arg0,
+            @WebParam(name = "arg1", targetNamespace = "")
+            String arg1);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "submitContract", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.SubmitContract")
     @ResponseWrapper(localName = "submitContractResponse", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.SubmitContractResponse")
     public String submitContract(

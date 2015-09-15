@@ -14,5 +14,5 @@ public interface BuildGridMapBlockInfo {
 
     boolean isLocked();
 
-    String getStatus();
+    HouseStatus getStatus();
 }

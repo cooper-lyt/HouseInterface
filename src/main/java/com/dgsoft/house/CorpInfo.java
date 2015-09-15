@@ -1,4 +1,4 @@
-package com.dgsoft;
+package com.dgsoft.house;
 
 import java.util.Date;
 
