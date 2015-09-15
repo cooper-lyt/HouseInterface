@@ -40,8 +40,12 @@ public class House implements HouseInfo {
 
     private boolean haveDownRoom;
 
-    public House(SaleBuild saleBuild, JSONObject jsonObject) {
+    public House(SaleBuild saleBuild, JSONObject jsonObject){
+        this(jsonObject);
         this.saleBuild = saleBuild;
+    }
+
+    public House(JSONObject jsonObject) {
         try {
             houseCode = jsonObject.getString("houseCode");
         } catch (JSONException e) {

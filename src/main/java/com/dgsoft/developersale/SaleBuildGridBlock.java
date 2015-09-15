@@ -2,13 +2,14 @@ package com.dgsoft.developersale;
 
 import com.dgsoft.house.BuildGridMapBlockInfo;
 import com.dgsoft.house.HouseInfo;
+import com.dgsoft.house.impl.House;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by cooper on 9/7/15.
  */
-public class SaleBuildGridBlock implements BuildGridMapBlockInfo ,java.io.Serializable{
+public class SaleBuildGridBlock implements BuildGridMapBlockInfo {
 
     private int colspan;
 
@@ -42,7 +43,17 @@ public class SaleBuildGridBlock implements BuildGridMapBlockInfo ,java.io.Serial
             this.locked = false;
         }
 
-        this.house = house;
+        try {
+            JSONObject houseJsonObj = jsonObject.getJSONObject("house");
+            if (houseJsonObj == null){
+                this.house = null;
+            }else {
+                this.house = new House(houseJsonObj);
+            }
+        } catch (JSONException e) {
+            this.house = null;
+        }
+
     }
 
     public String getStatus() {

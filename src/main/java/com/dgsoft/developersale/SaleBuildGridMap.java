@@ -22,7 +22,10 @@ public class SaleBuildGridMap implements BuildGridMapInfo,java.io.Serializable {
 
     private List<BuildGridMapRowInfo> rows;
 
-    public SaleBuildGridMap(JSONObject jsonObject) {
+    private int pageIndex;
+
+    public SaleBuildGridMap(int pageIndex, JSONObject jsonObject) {
+        this.pageIndex = pageIndex;
         try {
             this.name = jsonObject.getString("name");
         } catch (JSONException e) {
@@ -38,6 +41,19 @@ public class SaleBuildGridMap implements BuildGridMapInfo,java.io.Serializable {
 
         } catch (JSONException e) {
             titles = new ArrayList<BuildGridMapTitleInfo>(0);
+        }
+
+
+        try {
+            JSONArray titleJsonArray = jsonObject.getJSONArray("rows");
+            rows = new ArrayList<BuildGridMapRowInfo>(titleJsonArray.length());
+            for(int i =0 ; i < titleJsonArray.length(); i++){
+
+                rows.add(new SaleBuildGridMapRow(titleJsonArray.getJSONObject(i)));
+            }
+
+        } catch (JSONException e) {
+            rows = new ArrayList<BuildGridMapRowInfo>(0);
         }
     }
 
@@ -63,5 +79,29 @@ public class SaleBuildGridMap implements BuildGridMapInfo,java.io.Serializable {
 
     public void setRows(List<BuildGridMapRowInfo> rows) {
         this.rows = rows;
+    }
+
+
+    public int getColCount(){
+        int result = 0;
+        for (BuildGridMapTitleInfo title : getTitles()) {
+            result += title.getColspan();
+        }
+        return result;
+    }
+
+    public List<BuildGridMapTitleInfo> getUnitTitles(){
+        List<BuildGridMapTitleInfo> result = new ArrayList<BuildGridMapTitleInfo>(getTitles());
+        if (!result.isEmpty())
+            result.remove(0);
+        return result;
+    }
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 }

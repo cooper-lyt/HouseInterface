@@ -13,7 +13,4 @@ public interface BuildGridMapInfo {
 
     List<BuildGridMapRowInfo> getRows();
 
-
-    
-
 }

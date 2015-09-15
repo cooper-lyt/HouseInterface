@@ -1,72 +1,17 @@
 package com.dgsoft.developersale;
 
 /**
- * Created by cooper on 9/7/15.
+ * Created by cooper on 9/15/15.
  */
-public class LogonInfo implements java.io.Serializable{
+public interface LogonInfo {
 
-    private LogonStatus logonStatus;
+    LogonStatus getLogonStatus();
 
-    private String sessionKey;
+    String getEmployeeName();
 
-    private String employeeName;
+    String getCorpName();
 
-    private String corpName;
+    String getOrgName();
 
-    private String orgName;
-
-    private SaleProject saleProject;
-
-
-    public LogonInfo(LogonStatus logonStatus) {
-        this.logonStatus = logonStatus;
-    }
-
-    public LogonStatus getLogonStatus() {
-        return logonStatus;
-    }
-
-    public void setLogonStatus(LogonStatus logonStatus) {
-        this.logonStatus = logonStatus;
-    }
-
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getCorpName() {
-        return corpName;
-    }
-
-    public void setCorpName(String corpName) {
-        this.corpName = corpName;
-    }
-
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
-
-    public SaleProject getSaleProject() {
-        return saleProject;
-    }
-
-    public void setSaleProject(SaleProject saleProject) {
-        this.saleProject = saleProject;
-    }
+    String getGroupCode();
 }
