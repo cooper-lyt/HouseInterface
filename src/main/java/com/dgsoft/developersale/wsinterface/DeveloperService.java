@@ -46,9 +46,9 @@ public interface DeveloperService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "searchPledgeInfo", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.SearchPledgeInfo")
-    @ResponseWrapper(localName = "searchPledgeInfoResponse", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.SearchPledgeInfoResponse")
-    public String searchPledgeInfo(
+    @RequestWrapper(localName = "getHouseInfoBySale", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.GetHouseInfoBySale")
+    @ResponseWrapper(localName = "getHouseInfoBySaleResponse", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.GetHouseInfoBySaleResponse")
+    public String getHouseInfoBySale(
             @WebParam(name = "arg0", targetNamespace = "")
             String arg0,
             @WebParam(name = "arg1", targetNamespace = "")
@@ -88,6 +88,26 @@ public interface DeveloperService {
             String arg0,
             @WebParam(name = "arg1", targetNamespace = "")
             String arg1,
+            @WebParam(name = "arg2", targetNamespace = "")
+            String arg2);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "applyContractNumber", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.ApplyContractNumber")
+    @ResponseWrapper(localName = "applyContractNumberResponse", targetNamespace = "http://ws.owner.house.dgsoft.com/", className = "com.dgsoft.developersale.wsinterface.ApplyContractNumberResponse")
+    public String applyContractNumber(
+            @WebParam(name = "arg0", targetNamespace = "")
+            String arg0,
+            @WebParam(name = "arg1", targetNamespace = "")
+            int arg1,
             @WebParam(name = "arg2", targetNamespace = "")
             String arg2);
 

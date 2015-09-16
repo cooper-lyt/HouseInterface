@@ -24,36 +24,22 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ApplyContractNumber_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "applyContractNumber");
     private final static QName _GetBuildGridMap_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "getBuildGridMap");
     private final static QName _SubmitContractResponse_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "submitContractResponse");
-    private final static QName _SearchPledgeInfoResponse_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "searchPledgeInfoResponse");
     private final static QName _SubmitContract_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "submitContract");
+    private final static QName _ApplyContractNumberResponse_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "applyContractNumberResponse");
+    private final static QName _GetHouseInfoBySaleResponse_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "getHouseInfoBySaleResponse");
     private final static QName _Logon_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "logon");
+    private final static QName _GetHouseInfoBySale_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "getHouseInfoBySale");
     private final static QName _GetBuildGridMapResponse_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "getBuildGridMapResponse");
     private final static QName _LogonResponse_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "logonResponse");
-    private final static QName _SearchPledgeInfo_QNAME = new QName("http://ws.owner.house.dgsoft.com/", "searchPledgeInfo");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.dgsoft.developersale.wsinterface
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link GetBuildGridMapResponse }
-     * 
-     */
-    public GetBuildGridMapResponse createGetBuildGridMapResponse() {
-        return new GetBuildGridMapResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetBuildGridMap }
-     * 
-     */
-    public GetBuildGridMap createGetBuildGridMap() {
-        return new GetBuildGridMap();
     }
 
     /**
@@ -65,27 +51,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SearchPledgeInfo }
+     * Create an instance of {@link GetHouseInfoBySale }
      * 
      */
-    public SearchPledgeInfo createSearchPledgeInfo() {
-        return new SearchPledgeInfo();
+    public GetHouseInfoBySale createGetHouseInfoBySale() {
+        return new GetHouseInfoBySale();
     }
 
     /**
-     * Create an instance of {@link SearchPledgeInfoResponse }
+     * Create an instance of {@link ApplyContractNumber }
      * 
      */
-    public SearchPledgeInfoResponse createSearchPledgeInfoResponse() {
-        return new SearchPledgeInfoResponse();
-    }
-
-    /**
-     * Create an instance of {@link LogonResponse }
-     * 
-     */
-    public LogonResponse createLogonResponse() {
-        return new LogonResponse();
+    public ApplyContractNumber createApplyContractNumber() {
+        return new ApplyContractNumber();
     }
 
     /**
@@ -102,6 +80,55 @@ public class ObjectFactory {
      */
     public Logon createLogon() {
         return new Logon();
+    }
+
+    /**
+     * Create an instance of {@link GetHouseInfoBySaleResponse }
+     * 
+     */
+    public GetHouseInfoBySaleResponse createGetHouseInfoBySaleResponse() {
+        return new GetHouseInfoBySaleResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetBuildGridMapResponse }
+     * 
+     */
+    public GetBuildGridMapResponse createGetBuildGridMapResponse() {
+        return new GetBuildGridMapResponse();
+    }
+
+    /**
+     * Create an instance of {@link LogonResponse }
+     * 
+     */
+    public LogonResponse createLogonResponse() {
+        return new LogonResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetBuildGridMap }
+     * 
+     */
+    public GetBuildGridMap createGetBuildGridMap() {
+        return new GetBuildGridMap();
+    }
+
+    /**
+     * Create an instance of {@link ApplyContractNumberResponse }
+     * 
+     */
+    public ApplyContractNumberResponse createApplyContractNumberResponse() {
+        return new ApplyContractNumberResponse();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ApplyContractNumber }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "applyContractNumber")
+    public JAXBElement<ApplyContractNumber> createApplyContractNumber(ApplyContractNumber value) {
+        return new JAXBElement<ApplyContractNumber>(_ApplyContractNumber_QNAME, ApplyContractNumber.class, null, value);
     }
 
     /**
@@ -123,15 +150,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SearchPledgeInfoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "searchPledgeInfoResponse")
-    public JAXBElement<SearchPledgeInfoResponse> createSearchPledgeInfoResponse(SearchPledgeInfoResponse value) {
-        return new JAXBElement<SearchPledgeInfoResponse>(_SearchPledgeInfoResponse_QNAME, SearchPledgeInfoResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SubmitContract }{@code >}}
      * 
      */
@@ -141,12 +159,39 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ApplyContractNumberResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "applyContractNumberResponse")
+    public JAXBElement<ApplyContractNumberResponse> createApplyContractNumberResponse(ApplyContractNumberResponse value) {
+        return new JAXBElement<ApplyContractNumberResponse>(_ApplyContractNumberResponse_QNAME, ApplyContractNumberResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetHouseInfoBySaleResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "getHouseInfoBySaleResponse")
+    public JAXBElement<GetHouseInfoBySaleResponse> createGetHouseInfoBySaleResponse(GetHouseInfoBySaleResponse value) {
+        return new JAXBElement<GetHouseInfoBySaleResponse>(_GetHouseInfoBySaleResponse_QNAME, GetHouseInfoBySaleResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Logon }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "logon")
     public JAXBElement<Logon> createLogon(Logon value) {
         return new JAXBElement<Logon>(_Logon_QNAME, Logon.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetHouseInfoBySale }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "getHouseInfoBySale")
+    public JAXBElement<GetHouseInfoBySale> createGetHouseInfoBySale(GetHouseInfoBySale value) {
+        return new JAXBElement<GetHouseInfoBySale>(_GetHouseInfoBySale_QNAME, GetHouseInfoBySale.class, null, value);
     }
 
     /**
@@ -165,15 +210,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "logonResponse")
     public JAXBElement<LogonResponse> createLogonResponse(LogonResponse value) {
         return new JAXBElement<LogonResponse>(_LogonResponse_QNAME, LogonResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SearchPledgeInfo }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.owner.house.dgsoft.com/", name = "searchPledgeInfo")
-    public JAXBElement<SearchPledgeInfo> createSearchPledgeInfo(SearchPledgeInfo value) {
-        return new JAXBElement<SearchPledgeInfo>(_SearchPledgeInfo_QNAME, SearchPledgeInfo.class, null, value);
     }
 
 }

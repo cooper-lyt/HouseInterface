@@ -1,18 +1,25 @@
-package com.dgsoft.house.impl;
+package com.dgsoft.developersale;
 
-import com.dgsoft.developersale.SaleBuild;
 import com.dgsoft.house.HouseInfo;
+import com.dgsoft.house.HouseStatus;
+import com.dgsoft.house.PledgeInfo;
+import com.dgsoft.house.impl.HousePledgeInfo;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
 
 /**
  * Created by cooper on 9/4/15.
  */
-public class House implements HouseInfo {
+public class SaleHouse implements HouseInfo {
 
+    private final static EnumSet<HouseStatus> ALLOW_SALE_STATUS = EnumSet.of(HouseStatus.PROJECT_PLEDGE, HouseStatus.INIT_REG_CONFIRM, HouseStatus.INIT_REG);
 
 
     private String houseCode;
@@ -37,15 +44,93 @@ public class House implements HouseInfo {
     private String northWall;
     private String direction;
 
+    private SaleStatus status;
+
+
+
+    private HouseStatus houseStatus;
+
+    private boolean locked;
+
+    private boolean saled;
 
     private boolean haveDownRoom;
 
-    public House(SaleBuild saleBuild, JSONObject jsonObject){
+
+    private List<PledgeInfo> pledgeInfoList = new ArrayList<PledgeInfo>();
+
+
+
+    private SaleStatus getSaleStatus(){
+        if (isLocked()){
+            return SaleStatus.NO_SALE;
+        }
+        if (isSaled()){
+            return SaleStatus.CONTRACT_SUBMIT;
+        }
+
+
+        if (getStatus() == null){
+            return SaleStatus.CAN_SALE;
+        }else if (HouseStatus.COURT_CLOSE.equals(getStatus())) {
+            return SaleStatus.COURT_CLOSE;
+        } else if (HouseStatus.CONTRACTS_RECORD.equals(getStatus())) {
+            return SaleStatus.CONTRACTS_RECORD;
+        }else if (HouseStatus.PROJECT_PLEDGE.equals(getStatus())){
+            return SaleStatus.PROJECT_PLEDGE;
+        } else if(ALLOW_SALE_STATUS.contains(getStatus())){
+            return SaleStatus.CAN_SALE;
+        }else{
+            return SaleStatus.HAVE_SALE;
+        }
+
+    }
+
+    public SaleHouse(SaleBuild saleBuild, JSONObject jsonObject){
         this(jsonObject);
         this.saleBuild = saleBuild;
     }
 
-    public House(JSONObject jsonObject) {
+    public SaleHouse(JSONObject jsonObject) {
+
+        try {
+            JSONArray jsonArray = jsonObject.getJSONArray("pledge");
+            this.pledgeInfoList = new ArrayList<PledgeInfo>(jsonArray.length());
+            for(int i = 0; i < jsonArray.length(); i++){
+                pledgeInfoList.add(new HousePledgeInfo(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            this.pledgeInfoList = new ArrayList<PledgeInfo>(0);
+        }
+
+
+
+        try {
+            String statusName = jsonObject.getString("status");
+            if (statusName == null || statusName.trim().equals("")){
+                this.houseStatus = null;
+            }else
+                this.houseStatus = HouseStatus.valueOf(statusName);
+        } catch (JSONException e) {
+            this.houseStatus = null;
+        }
+
+        try {
+            this.locked = jsonObject.getBoolean("locked");
+        } catch (JSONException e) {
+            this.locked = false;
+        }
+
+
+        try {
+            this.saled = jsonObject.getBoolean("saled");
+        } catch (JSONException e) {
+            this.saled = false;
+        }
+
+        this.status = getSaleStatus();
+
+
         try {
             houseCode = jsonObject.getString("houseCode");
         } catch (JSONException e) {
@@ -155,6 +240,53 @@ public class House implements HouseInfo {
     }
 
 
+    public List<PledgeInfo> getPledgeInfoList() {
+        return pledgeInfoList;
+    }
+
+    public void setPledgeInfoList(List<PledgeInfo> pledgeInfoList) {
+        this.pledgeInfoList = pledgeInfoList;
+    }
+
+    public SaleBuild getSaleBuild() {
+        return saleBuild;
+    }
+
+    public void setSaleBuild(SaleBuild saleBuild) {
+        this.saleBuild = saleBuild;
+    }
+
+    public HouseStatus getHouseStatus() {
+        return houseStatus;
+    }
+
+    public void setHouseStatus(HouseStatus houseStatus) {
+        this.houseStatus = houseStatus;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean isSaled() {
+        return saled;
+    }
+
+    public void setSaled(boolean saled) {
+        this.saled = saled;
+    }
+
+    public SaleStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SaleStatus status) {
+        this.status = status;
+    }
 
     public String getHouseCode() {
         return houseCode;
