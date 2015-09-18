@@ -46,6 +46,8 @@ public class SaleHouse implements HouseInfo {
 
     private SaleStatus status;
 
+    private Boolean inBiz;
+
 
 
     private HouseStatus houseStatus;
@@ -104,6 +106,11 @@ public class SaleHouse implements HouseInfo {
         }
 
 
+        try {
+            this.inBiz = jsonObject.getBoolean("inBiz");
+        } catch (JSONException e) {
+            this.inBiz = null;
+        }
 
         try {
             String statusName = jsonObject.getString("status");
@@ -286,6 +293,14 @@ public class SaleHouse implements HouseInfo {
 
     public void setStatus(SaleStatus status) {
         this.status = status;
+    }
+
+    public Boolean getInBiz() {
+        return inBiz;
+    }
+
+    public void setInBiz(Boolean inBiz) {
+        this.inBiz = inBiz;
     }
 
     public String getHouseCode() {

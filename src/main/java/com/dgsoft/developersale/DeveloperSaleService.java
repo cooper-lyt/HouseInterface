@@ -6,6 +6,7 @@ import com.dgsoft.developersale.wsinterface.DeveloperServiceService;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dgsoft.house.SaleType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +47,7 @@ public abstract class DeveloperSaleService {
             result.setCorpName(resultJsonObject.getString("corpName"));
             result.setOrgName(resultJsonObject.getString("orgName"));
             result.setSaleProject(new SaleProject(resultJsonObject.getJSONObject("project")));
+            result.setUserId(userId);
 
             return result;
 
@@ -75,5 +77,58 @@ public abstract class DeveloperSaleService {
             return null;
         }
     }
+
+    public List<String> applyContractNumber(LogonInfo logonInfo, int count , SaleType type){
+        String data = webService.getDeveloperServicePort().applyContractNumber(logonInfo.getUserId(), count, type.name());
+        if (data == null){
+            return null;
+        }
+        try {
+            String resultStr = DESUtil.decrypt(data, logonInfo.getSessionKey());
+            JSONArray jsonArray = new JSONArray(resultStr);
+            List<String> result = new ArrayList<String>(jsonArray.length());
+            for (int i = 0 ; i < jsonArray.length(); i++){
+                result.add(jsonArray.getString(i));
+            }
+            return result;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public SaleHouse getHouseInfoBySale(DeveloperLogonInfo logonInfo, String houseCode){
+        String data = webService.getDeveloperServicePort().getHouseInfoBySale(logonInfo.getUserId(), houseCode);
+        if (data == null){
+            return null;
+        }
+        try {
+            String resultStr = DESUtil.decrypt(data, logonInfo.getSessionKey());
+
+            JSONObject jsonObject = new JSONObject(resultStr);
+            SaleBuild saleBuild = null;
+            for(SaleBuild build: logonInfo.getSaleProject().getSaleBuildList()){
+                if (build.getBuildCode().equals(jsonObject.getString("buildCode"))){
+                    saleBuild = build;
+                    break;
+                }
+            }
+
+            return new SaleHouse(saleBuild,jsonObject);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

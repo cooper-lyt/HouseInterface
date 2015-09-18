@@ -25,13 +25,17 @@ public class DeveloperServiceService
         super(wsdlLocation, serviceName);
     }
 
-    public DeveloperServiceService(String url) throws MalformedURLException {
+    public DeveloperServiceService(String url){
         super(getURL(url), new QName("http://ws.owner.house.dgsoft.com/", "DeveloperServiceService"));
     }
 
-    private static URL getURL(String url) throws MalformedURLException {
+    private static URL getURL(String url) {
 
-        return new URL(DeveloperServiceService.class.getResource("."), url);
+        try {
+            return new URL(DeveloperServiceService.class.getResource("."), url);
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException(e);
+        }
 
     }
 

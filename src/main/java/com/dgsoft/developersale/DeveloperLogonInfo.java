@@ -17,6 +17,8 @@ public class DeveloperLogonInfo implements java.io.Serializable, LogonInfo{
 
     private SaleProject saleProject;
 
+    private String userId;
+
 
     public DeveloperLogonInfo(LogonStatus logonStatus) {
         this.logonStatus = logonStatus;
@@ -72,5 +74,13 @@ public class DeveloperLogonInfo implements java.io.Serializable, LogonInfo{
 
     public void setSaleProject(SaleProject saleProject) {
         this.saleProject = saleProject;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -1,5 +1,6 @@
 package com.dgsoft.developersale;
 
+import com.dgsoft.house.SaleType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class ProjectSellCard implements  java.io.Serializable{
 
-    private ProjectSellType cardType;
+    private SaleType cardType;
     private String  cardNumber;
     private String address;
     private String landCardType;
@@ -37,7 +38,7 @@ public class ProjectSellCard implements  java.io.Serializable{
     public ProjectSellCard(SaleProject saleProject,JSONObject jsonObject) {
         this.saleProject = saleProject;
         try {
-            this.cardType = ProjectSellType.valueOf(jsonObject.getString("cardType"));
+            this.cardType = SaleType.valueOf(jsonObject.getString("cardType"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -129,11 +130,11 @@ public class ProjectSellCard implements  java.io.Serializable{
         this.saleProject = saleProject;
     }
 
-    public ProjectSellType getCardType() {
+    public SaleType getCardType() {
         return cardType;
     }
 
-    public void setCardType(ProjectSellType cardType) {
+    public void setCardType(SaleType cardType) {
         this.cardType = cardType;
     }
 
