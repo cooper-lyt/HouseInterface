@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getDictionaryWord", propOrder = {
     "arg0"
-})
+},namespace = "http://ws.system.common.dgsoft.com/dictionaryWord")
 public class GetDictionaryWord {
 
     protected String arg0;

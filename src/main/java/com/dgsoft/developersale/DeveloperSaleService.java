@@ -20,9 +20,9 @@ public abstract class DeveloperSaleService {
 
     protected abstract String getWsdlLocation();
 
-    private DeveloperServiceService webService;
+    protected DeveloperServiceService webService;
 
-    public DeveloperSaleService() throws MalformedURLException {
+    public DeveloperSaleService() {
         webService = new DeveloperServiceService(getWsdlLocation());
     }
 
@@ -44,7 +44,8 @@ public abstract class DeveloperSaleService {
 
             result.setSessionKey(resultJsonObject.getString("sessionKey"));
             result.setEmployeeName(resultJsonObject.getString("employeeName"));
-            result.setCorpName(resultJsonObject.getString("corpName"));
+            //result.setCorpName(resultJsonObject.getString("corpName"));
+            result.setAttachCorpInfo(new JsonAttachCorp(resultJsonObject.getJSONObject("attachCorpInfo")));
             result.setOrgName(resultJsonObject.getString("orgName"));
             result.setSaleProject(new SaleProject(resultJsonObject.getJSONObject("project")));
             result.setUserId(userId);

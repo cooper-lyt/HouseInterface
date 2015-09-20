@@ -20,7 +20,7 @@ public enum SaleType {
 
     public String getCurrentPatch() {
         if (versions.length > 0) {
-            return versions[versions.length - 1];
+            return this.name() + "-" + versions[versions.length - 1];
         }
         return null;
     }

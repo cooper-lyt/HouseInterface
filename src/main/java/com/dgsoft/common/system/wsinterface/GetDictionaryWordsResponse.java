@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getDictionaryWordsResponse", propOrder = {
     "_return"
-})
+},namespace = "http://ws.system.common.dgsoft.com/dictionaryWordsResponse")
 public class GetDictionaryWordsResponse {
 
     @XmlElement(name = "return")

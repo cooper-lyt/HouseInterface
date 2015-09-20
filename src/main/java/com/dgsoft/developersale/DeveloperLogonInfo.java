@@ -1,5 +1,7 @@
 package com.dgsoft.developersale;
 
+import com.dgsoft.house.AttachCorpInfo;
+
 /**
  * Created by cooper on 9/7/15.
  */
@@ -11,13 +13,13 @@ public class DeveloperLogonInfo implements java.io.Serializable, LogonInfo{
 
     private String employeeName;
 
-    private String corpName;
-
     private String orgName;
 
     private SaleProject saleProject;
 
     private String userId;
+
+    private AttachCorpInfo attachCorpInfo;
 
 
     public DeveloperLogonInfo(LogonStatus logonStatus) {
@@ -48,12 +50,12 @@ public class DeveloperLogonInfo implements java.io.Serializable, LogonInfo{
         this.employeeName = employeeName;
     }
 
-    public String getCorpName() {
-        return corpName;
+    public AttachCorpInfo getAttachCorpInfo() {
+        return attachCorpInfo;
     }
 
-    public void setCorpName(String corpName) {
-        this.corpName = corpName;
+    public void setAttachCorpInfo(AttachCorpInfo attachCorpInfo) {
+        this.attachCorpInfo = attachCorpInfo;
     }
 
     public String getOrgName() {

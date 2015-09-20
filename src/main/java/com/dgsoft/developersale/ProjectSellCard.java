@@ -24,9 +24,14 @@ public class ProjectSellCard implements  java.io.Serializable{
     private String landUseType;
     private Date landEndUseTime;
 
+    private String landGetMode;
+    private String landAddress;
+
     private String createCardNumber;
     private String createPrepareCardNumber;
+    private String developerName;
     private String name;
+    private String mappingCropName;
 
     private SaleProject saleProject;
 
@@ -37,10 +42,23 @@ public class ProjectSellCard implements  java.io.Serializable{
 
     public ProjectSellCard(SaleProject saleProject,JSONObject jsonObject) {
         this.saleProject = saleProject;
+
+        try {
+            this.mappingCropName = jsonObject.getString("mappingCropName");
+        } catch (JSONException e) {
+            this.mappingCropName = null;
+        }
+
+        try {
+            this.developerName = jsonObject.getString("developerName");
+        } catch (JSONException e) {
+            this.developerName = null;
+        }
+
         try {
             this.cardType = SaleType.valueOf(jsonObject.getString("cardType"));
         } catch (JSONException e) {
-            e.printStackTrace();
+            this.cardType = null;
         }
         try {
             this.cardNumber = jsonObject.getString("cardNumber");
@@ -76,6 +94,18 @@ public class ProjectSellCard implements  java.io.Serializable{
             this.landEndUseTime = new Date(jsonObject.getLong("landEndUseTime"));
         } catch (JSONException e) {
             this.landEndUseTime = null;
+        }
+
+        try {
+            this.landGetMode = jsonObject.getString("landGetMode");
+        } catch (JSONException e) {
+            this.landGetMode = null;
+        }
+
+        try {
+            this.landAddress = jsonObject.getString("landAddress");
+        } catch (JSONException e) {
+            this.landAddress = null;
         }
 
         try {
@@ -209,5 +239,37 @@ public class ProjectSellCard implements  java.io.Serializable{
 
     public void setCreatePrepareCardNumber(String createPrepareCardNumber) {
         this.createPrepareCardNumber = createPrepareCardNumber;
+    }
+
+    public String getDeveloperName() {
+        return developerName;
+    }
+
+    public void setDeveloperName(String developerName) {
+        this.developerName = developerName;
+    }
+
+    public String getLandGetMode() {
+        return landGetMode;
+    }
+
+    public void setLandGetMode(String landGetMode) {
+        this.landGetMode = landGetMode;
+    }
+
+    public String getLandAddress() {
+        return landAddress;
+    }
+
+    public void setLandAddress(String landAddress) {
+        this.landAddress = landAddress;
+    }
+
+    public String getMappingCropName() {
+        return mappingCropName;
+    }
+
+    public void setMappingCropName(String mappingCropName) {
+        this.mappingCropName = mappingCropName;
     }
 }

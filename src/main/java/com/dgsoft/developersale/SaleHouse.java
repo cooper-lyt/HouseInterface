@@ -72,15 +72,15 @@ public class SaleHouse implements HouseInfo {
         }
 
 
-        if (getStatus() == null){
+        if (getHouseStatus() == null){
             return SaleStatus.CAN_SALE;
-        }else if (HouseStatus.COURT_CLOSE.equals(getStatus())) {
+        }else if (HouseStatus.COURT_CLOSE.equals(getHouseStatus())) {
             return SaleStatus.COURT_CLOSE;
-        } else if (HouseStatus.CONTRACTS_RECORD.equals(getStatus())) {
+        } else if (HouseStatus.CONTRACTS_RECORD.equals(getHouseStatus())) {
             return SaleStatus.CONTRACTS_RECORD;
-        }else if (HouseStatus.PROJECT_PLEDGE.equals(getStatus())){
+        }else if (HouseStatus.PROJECT_PLEDGE.equals(getHouseStatus())){
             return SaleStatus.PROJECT_PLEDGE;
-        } else if(ALLOW_SALE_STATUS.contains(getStatus())){
+        } else if(ALLOW_SALE_STATUS.contains(getHouseStatus())){
             return SaleStatus.CAN_SALE;
         }else{
             return SaleStatus.HAVE_SALE;
@@ -411,6 +411,10 @@ public class SaleHouse implements HouseInfo {
         this.structure = structure;
     }
 
+    public String getStructure() {
+        return structure;
+    }
+
     public String getKnotSize() {
         return knotSize;
     }
@@ -539,9 +543,7 @@ public class SaleHouse implements HouseInfo {
         return saleBuild.getBuildType();
     }
 
-    public String getStructure() {
-        return saleBuild.getStructure();
-    }
+
 
     public String getBuildDevNumber() {
         return saleBuild.getBuildDevNumber();

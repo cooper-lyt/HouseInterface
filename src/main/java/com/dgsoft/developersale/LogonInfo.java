@@ -1,5 +1,7 @@
 package com.dgsoft.developersale;
 
+import com.dgsoft.house.AttachCorpInfo;
+
 /**
  * Created by cooper on 9/15/15.
  */
@@ -9,8 +11,6 @@ public interface LogonInfo {
 
     String getEmployeeName();
 
-    String getCorpName();
-
     String getOrgName();
 
     String getGroupCode();
@@ -18,4 +18,6 @@ public interface LogonInfo {
     String getUserId();
 
     String getSessionKey();
+
+    AttachCorpInfo getAttachCorpInfo();
 }

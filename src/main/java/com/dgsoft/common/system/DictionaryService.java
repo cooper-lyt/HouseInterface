@@ -18,7 +18,7 @@ public abstract class DictionaryService {
 
     private WordDictionaryServiceService webService;
 
-    public DictionaryService() throws MalformedURLException {
+    public DictionaryService() {
         webService = new WordDictionaryServiceService(getWsdlLocation());
     }
 
