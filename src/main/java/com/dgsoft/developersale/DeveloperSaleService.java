@@ -53,8 +53,7 @@ public abstract class DeveloperSaleService {
             return result;
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -74,8 +73,7 @@ public abstract class DeveloperSaleService {
             return result;
 
         } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -94,11 +92,9 @@ public abstract class DeveloperSaleService {
             return result;
 
         } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException(e);
         }catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -123,13 +119,24 @@ public abstract class DeveloperSaleService {
             return new SaleHouse(saleBuild,jsonObject);
 
         } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException(e);
         }catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException(e);
         }
     }
 
+    public CommitResult commitContract(DeveloperLogonInfo logonInfo, String contract){
+        try {
+            return CommitResult.valueOf(webService.getDeveloperServicePort().submitContract(DESUtil.encrypt(contract,logonInfo.getSessionKey()),logonInfo.getUserId()));
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+
+
+    public enum CommitResult{
+        COMMIT_OK, CONTRACT_NUMBER_ERROR, HOUSE_ERROR, ERROR
+    }
 
 }

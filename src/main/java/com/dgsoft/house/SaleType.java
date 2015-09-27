@@ -28,7 +28,7 @@ public enum SaleType {
     public String getPatchByVersion(int version){
         if (version > this.versions.length)
             return null;
-        return versions[version-1];
+        return this.name() + "-" + versions[version-1];
     }
 
     SaleType(String numberPrefx, String... versions){
