@@ -64,7 +64,7 @@ public class SaleHouse implements HouseInfo {
 
 
     private SaleStatus getSaleStatus(){
-        if (isLocked()){
+        if (isLocked() || (getHouseType() != null && !getHouseType().trim().equals(""))){
             return SaleStatus.NO_SALE;
         }
         if (isSaled()){
