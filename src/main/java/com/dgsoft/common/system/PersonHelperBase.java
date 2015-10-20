@@ -10,10 +10,33 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
     private String uuid;
 
 
+
+
     public PersonHelperBase(E entity) {
         this.entity = entity;
-        isManager = false;
-        uuid = UUID.randomUUID().toString();
+        uuid = UUID.randomUUID().toString().replace("-","").toUpperCase();
+        if (entity.getCredentialsType() == null){
+            entity.setCredentialsType(PersonEntity.CredentialsType.MASTER_ID);
+        }
+
+    }
+
+    private boolean reading = false;
+
+    public boolean isReading() {
+        return reading;
+    }
+
+    public void setReading(boolean reading) {
+        this.reading = reading;
+    }
+
+    public void beginReading(){
+        reading = true;
+    }
+
+    public void endReading(){
+        reading = false;
     }
 
     private E entity;
@@ -50,19 +73,29 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
         return uuid;
     }
 
-    private boolean isManager = false;
-
-    public boolean isManager() {
-        return isManager;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    protected void setManager(boolean isManager) {
-        this.isManager = isManager;
-    }
+    //    private boolean isManager = false;
+//
+//    public boolean isManager() {
+//        return isManager;
+//    }
+//
+//    protected void setManager(boolean isManager) {
+//        this.isManager = isManager;
+//    }
 
-    public void readFromCard() {
+//    public void readFromCard() {
+//
+//        isManager = true;
+//    }
 
-        isManager = true;
+    private PersonIDCard idCard = null;
+
+    public PersonIDCard getIdCard() {
+        return idCard;
     }
 
     protected void fillPerson(PersonIDCard person){
@@ -71,11 +104,12 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
         setCredentialsNumber(person.getNumber());
 
         //TODO otherInfo
+        idCard = person;
     }
 
     public void typeChange() {
 
-        isManager = false;
+        idCard = null;
         if ((getCredentialsType() != null) &&  getCredentialsType().equals(PersonEntity.CredentialsType.OTHER)) {
             setCredentialsNumber(UUID.randomUUID().toString());
         } else {
@@ -88,13 +122,13 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
 
 
     public void numberChange() {
-        isManager = false;
+        idCard = null;
+        reading = false;
         if ((getCredentialsNumber() != null) &&
                 getCredentialsType().equals(PersonEntity.CredentialsType.MASTER_ID)){
             PersonIDCard person = findStorePersonIDCard(getCredentialsNumber());
             if (person != null) {
                 fillPerson(person);
-                isManager = true;
             }
         }
     }
