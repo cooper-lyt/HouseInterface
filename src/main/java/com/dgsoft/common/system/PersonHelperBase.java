@@ -36,6 +36,7 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
     }
 
     public void beginReading(){
+        entity.setCredentialsType(PersonEntity.CredentialsType.MASTER_ID);
         reading = true;
     }
 
@@ -114,12 +115,17 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
     public void typeChange() {
 
         idCard = null;
+        reading = false;
         if ((getCredentialsType() != null) &&  getCredentialsType().equals(PersonEntity.CredentialsType.OTHER)) {
             setCredentialsNumber(UUID.randomUUID().toString());
         } else {
             setCredentialsNumber(null);
         }
+        clearInfo();
+    }
 
+    protected void clearInfo(){
+        entity.setPersonName(null);
     }
 
     protected abstract PersonIDCard findStorePersonIDCard(String credentialsNumber);
