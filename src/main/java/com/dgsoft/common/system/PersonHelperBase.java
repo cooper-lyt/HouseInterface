@@ -17,6 +17,10 @@ public abstract class PersonHelperBase<E extends PersonEntity>  {
         uuid = UUID.randomUUID().toString().replace("-","").toUpperCase();
         if (entity.getCredentialsType() == null){
             entity.setCredentialsType(PersonEntity.CredentialsType.MASTER_ID);
+        }else if (entity.getCredentialsType().equals(PersonEntity.CredentialsType.MASTER_ID) &&
+                entity.getCredentialsNumber() != null &&
+                !entity.getCredentialsNumber().trim().equals("")){
+            idCard = findStorePersonIDCard(getCredentialsNumber());
         }
 
     }
