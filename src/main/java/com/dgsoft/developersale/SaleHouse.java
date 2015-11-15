@@ -3,6 +3,7 @@ package com.dgsoft.developersale;
 import com.dgsoft.house.HouseInfo;
 import com.dgsoft.house.HouseStatus;
 import com.dgsoft.house.PledgeInfo;
+import com.dgsoft.house.SaleType;
 import com.dgsoft.house.impl.HousePledgeInfo;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +48,7 @@ public class SaleHouse implements HouseInfo {
     private SaleStatus status;
 
     private Boolean inBiz;
+    private SaleType saleType;
 
 
 
@@ -110,6 +112,12 @@ public class SaleHouse implements HouseInfo {
             this.inBiz = jsonObject.getBoolean("inBiz");
         } catch (JSONException e) {
             this.inBiz = null;
+        }
+
+        try {
+            this.saleType = SaleType.valueOf(jsonObject.getString("saleType"));
+        } catch (JSONException e) {
+            this.saleType = null;
         }
 
         try {
@@ -199,7 +207,7 @@ public class SaleHouse implements HouseInfo {
             houseType = null;
         }
         try {
-            useType = jsonObject.getString("houseType");
+            useType = jsonObject.getString("useType");
         } catch (JSONException e) {
             useType = null;
         }
@@ -571,5 +579,13 @@ public class SaleHouse implements HouseInfo {
 
     public Date getMapTime() {
         return saleBuild.getMapTime();
+    }
+
+    public SaleType getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(SaleType saleType) {
+        this.saleType = saleType;
     }
 }
