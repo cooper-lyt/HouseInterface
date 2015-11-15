@@ -32,17 +32,13 @@ public class SaleProject implements ProjectInfo ,java.io.Serializable{
         projectSellCardList = new ArrayList<ProjectSellCard>(0);
     }
 
-    public SaleProject(JSONObject jsonObject) {
-        try {
-            this.developerName = jsonObject.getString("developerName");
-        } catch (JSONException e) {
-            this.developerName = null;
-        }
-        try {
-            this.developerCode = jsonObject.getString("developerCode");
-        } catch (JSONException e) {
-            this.developerCode = null;
-        }
+    public SaleProject(JSONObject jsonObject,String developerCode, String developerName) {
+
+            this.developerName = developerName;
+
+
+            this.developerCode = developerCode;
+
         try {
             this.projectName = jsonObject.getString("projectName");
         } catch (JSONException e) {

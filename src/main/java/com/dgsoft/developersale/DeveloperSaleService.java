@@ -47,7 +47,19 @@ public abstract class DeveloperSaleService {
             //result.setCorpName(resultJsonObject.getString("corpName"));
             result.setAttachCorpInfo(new JsonAttachCorp(resultJsonObject.getJSONObject("attachCorpInfo")));
             result.setOrgName(resultJsonObject.getString("orgName"));
-            result.setSaleProject(new SaleProject(resultJsonObject.getJSONObject("project")));
+
+            result.setGroupName(resultJsonObject.getString("groupName"));
+            result.setGroupCode(resultJsonObject.getString("groupCode"));
+            List<SaleProject> saleProjects = new ArrayList<SaleProject>();
+
+
+            JSONArray projectArray = resultJsonObject.getJSONArray("projects");
+            for(int i = 0; i < projectArray.length(); i++){
+                saleProjects.add(new SaleProject(projectArray.getJSONObject(i),result.getGroupCode(),result.getGroupName()));
+
+            }
+            result.setSaleProjects(saleProjects);
+
             result.setUserId(userId);
 
             return result;
@@ -109,12 +121,18 @@ public abstract class DeveloperSaleService {
 
             JSONObject jsonObject = new JSONObject(resultStr);
             SaleBuild saleBuild = null;
-            for(SaleBuild build: logonInfo.getSaleProject().getSaleBuildList()){
-                if (build.getBuildCode().equals(jsonObject.getString("buildCode"))){
-                    saleBuild = build;
+            for (SaleProject project: logonInfo.getSaleProjects()){
+                for(SaleBuild build: project.getSaleBuildList()){
+                    if (build.getBuildCode().equals(jsonObject.getString("buildCode"))){
+                        saleBuild = build;
+                        break;
+                    }
+                }
+                if (saleBuild != null){
                     break;
                 }
             }
+
 
             return new SaleHouse(saleBuild,jsonObject);
 

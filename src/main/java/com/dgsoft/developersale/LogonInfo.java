@@ -15,6 +15,8 @@ public interface LogonInfo {
 
     String getGroupCode();
 
+    String getGroupName();
+
     String getUserId();
 
     String getSessionKey();
