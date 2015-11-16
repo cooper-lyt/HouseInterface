@@ -60,6 +60,8 @@ public class SaleHouse implements HouseInfo {
 
     private boolean haveDownRoom;
 
+    private String ownerCardNumber;
+
 
     private List<PledgeInfo> pledgeInfoList = new ArrayList<PledgeInfo>();
 
@@ -250,6 +252,12 @@ public class SaleHouse implements HouseInfo {
             direction = jsonObject.getString("direction");
         } catch (JSONException e) {
             direction = null;
+        }
+
+        try {
+            ownerCardNumber = jsonObject.getString("ownerCardNumber");
+        } catch (JSONException e) {
+            ownerCardNumber = null;
         }
 
     }
@@ -587,5 +595,13 @@ public class SaleHouse implements HouseInfo {
 
     public void setSaleType(SaleType saleType) {
         this.saleType = saleType;
+    }
+
+    public String getOwnerCardNumber() {
+        return ownerCardNumber;
+    }
+
+    public void setOwnerCardNumber(String ownerCardNumber) {
+        this.ownerCardNumber = ownerCardNumber;
     }
 }
