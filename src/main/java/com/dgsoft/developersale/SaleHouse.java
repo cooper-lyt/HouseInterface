@@ -174,32 +174,32 @@ public class SaleHouse implements HouseInfo {
             inFloorName = null;
         }
         try {
-            houseArea = new BigDecimal(jsonObject.getDouble("houseArea"));
+            houseArea = new BigDecimal(jsonObject.getString("houseArea"));
         } catch (JSONException e) {
             houseArea = null;
         }
         try {
-            useArea = new BigDecimal(jsonObject.getDouble("useArea"));
+            useArea = new BigDecimal(jsonObject.getString("useArea"));
         } catch (JSONException e) {
             useArea = null;
         }
         try {
-            commArea = new BigDecimal(jsonObject.getDouble("commArea"));
+            commArea = new BigDecimal(jsonObject.getString("commArea"));
         } catch (JSONException e) {
             commArea = null;
         }
         try {
-            shineArea = new BigDecimal(jsonObject.getDouble("shineArea"));
+            shineArea = new BigDecimal(jsonObject.getString("shineArea"));
         } catch (JSONException e) {
             shineArea = null;
         }
         try {
-            loftArea = new BigDecimal(jsonObject.getDouble("loftArea"));
+            loftArea = new BigDecimal(jsonObject.getString("loftArea"));
         } catch (JSONException e) {
             loftArea = null;
         }
         try {
-            commParam = new BigDecimal(jsonObject.getDouble("commParam"));
+            commParam = new BigDecimal(jsonObject.getString("commParam"));
         } catch (JSONException e) {
             commParam = null;
         }

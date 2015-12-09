@@ -81,7 +81,7 @@ public class ProjectSellCard implements  java.io.Serializable{
             this.landCardNumber = null;
         }
         try {
-            this.landArea = new BigDecimal(jsonObject.getDouble("landArea"));
+            this.landArea = new BigDecimal(jsonObject.getString("landArea"));
         } catch (JSONException e) {
             this.landArea = null;
         }
