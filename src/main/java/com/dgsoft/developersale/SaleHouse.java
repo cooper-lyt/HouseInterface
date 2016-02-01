@@ -62,6 +62,8 @@ public class SaleHouse implements HouseInfo {
 
     private String ownerCardNumber;
 
+    private Date landEndUseTime;
+
 
     private List<PledgeInfo> pledgeInfoList = new ArrayList<PledgeInfo>();
 
@@ -120,6 +122,11 @@ public class SaleHouse implements HouseInfo {
             this.saleType = SaleType.valueOf(jsonObject.getString("saleType"));
         } catch (JSONException e) {
             this.saleType = null;
+        }
+        try {
+            this.landEndUseTime = new Date(jsonObject.getLong("landEndUseTime"));
+        } catch (JSONException e) {
+            this.landEndUseTime = null;
         }
 
         try {
@@ -604,4 +611,10 @@ public class SaleHouse implements HouseInfo {
     public void setOwnerCardNumber(String ownerCardNumber) {
         this.ownerCardNumber = ownerCardNumber;
     }
+
+
+    public Date getLandEndUseTime() {
+        return landEndUseTime;
+    }
+
 }
