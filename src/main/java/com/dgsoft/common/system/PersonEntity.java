@@ -7,7 +7,7 @@ public interface PersonEntity {
 
     public enum CredentialsType{
         MASTER_ID(false),COMPANY_CODE(true),CORP_CODE(true),
-        SOLDIER_CARD(false),PASSPORT(false),OTHER(false);
+        SOLDIER_CARD(false),PASSPORT(false),TW_ID(false),OTHER(false);
 
         private boolean corp;
 
