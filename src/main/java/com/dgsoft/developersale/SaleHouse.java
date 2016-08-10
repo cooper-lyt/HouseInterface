@@ -152,7 +152,7 @@ public class SaleHouse implements HouseInfo {
             this.saled = false;
         }
 
-        this.status = getSaleStatus();
+
 
 
         try {
@@ -266,6 +266,9 @@ public class SaleHouse implements HouseInfo {
         } catch (JSONException e) {
             ownerCardNumber = null;
         }
+
+
+        this.status = getSaleStatus();
 
     }
 
