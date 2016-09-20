@@ -19,4 +19,7 @@ public interface AttachCorpInfo {
 
     String getOwnerTel();
 
+    AttachCorpType getAttachCorpType();
+
+
 }

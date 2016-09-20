@@ -6,12 +6,12 @@ import com.dgsoft.developersale.wsinterface.DeveloperServiceService;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dgsoft.house.AttachCorpInfo;
+import com.dgsoft.house.AttachCorpType;
 import com.dgsoft.house.SaleType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.MalformedURLException;
 
 /**
  * Created by cooper on 9/7/15.
@@ -26,7 +26,7 @@ public abstract class DeveloperSaleService {
         webService = new DeveloperServiceService(getWsdlLocation());
     }
 
-    public DeveloperLogonInfo logon(String userId, String password, String random) {
+    public AttachCorpLogonInfo logon(String userId, String password, String random) {
 
         try {
             String data = webService.getDeveloperServicePort().logon(userId, password, random);
@@ -37,32 +37,51 @@ public abstract class DeveloperSaleService {
 
             JSONObject resultJsonObject = new JSONObject(resultStr);
 
-            DeveloperLogonInfo result = new DeveloperLogonInfo(LogonStatus.valueOf(resultJsonObject.getString("logonStatus")));
-            if (!result.getLogonStatus().equals(LogonStatus.LOGON)){
-                return result;
+            LogonStatus logonStatus = LogonStatus.valueOf(resultJsonObject.getString("logonStatus"));
+
+            if (!logonStatus.equals(LogonStatus.LOGON)){
+                return new AttachCorpLogonInfo(null,logonStatus);
             }
+
+            AttachCorpInfo attachCorpInfo = new JsonAttachCorp(resultJsonObject.getJSONObject("attachCorpInfo"));
+
+            AttachCorpLogonInfo result;
+
+            if (AttachCorpType.DEVELOPER.equals(attachCorpInfo.getAttachCorpType())){
+                result = new DeveloperLogonInfo(attachCorpInfo,logonStatus);
+
+                List<SaleProject> saleProjects = new ArrayList<SaleProject>();
+
+
+                JSONArray projectArray = resultJsonObject.getJSONArray("projects");
+                for(int i = 0; i < projectArray.length(); i++){
+                    saleProjects.add(new SaleProject(projectArray.getJSONObject(i),result.getGroupCode(),result.getGroupName()));
+
+                }
+                ((DeveloperLogonInfo)result).setSaleProjects(saleProjects);
+            }else if (AttachCorpType.AGENCIES.equals(attachCorpInfo.getAttachCorpType())){
+                result = new AgenciesLogonInfo(attachCorpInfo,logonStatus);
+            }else{
+                return null;
+            }
+
+
+
 
             result.setSessionKey(resultJsonObject.getString("sessionKey"));
             result.setEmployeeName(resultJsonObject.getString("employeeName"));
             //result.setCorpName(resultJsonObject.getString("corpName"));
-            result.setAttachCorpInfo(new JsonAttachCorp(resultJsonObject.getJSONObject("attachCorpInfo")));
             result.setOrgName(resultJsonObject.getString("orgName"));
 
             result.setGroupName(resultJsonObject.getString("groupName"));
             result.setGroupCode(resultJsonObject.getString("groupCode"));
-            List<SaleProject> saleProjects = new ArrayList<SaleProject>();
 
-
-            JSONArray projectArray = resultJsonObject.getJSONArray("projects");
-            for(int i = 0; i < projectArray.length(); i++){
-                saleProjects.add(new SaleProject(projectArray.getJSONObject(i),result.getGroupCode(),result.getGroupName()));
-
-            }
-            result.setSaleProjects(saleProjects);
 
             result.setUserId(userId);
 
             return result;
+
+
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
@@ -143,7 +162,7 @@ public abstract class DeveloperSaleService {
         }
     }
 
-    public CommitResult commitContract(DeveloperLogonInfo logonInfo, String contract){
+    public CommitResult commitContract(AttachCorpLogonInfo logonInfo, String contract){
         try {
             return CommitResult.valueOf(webService.getDeveloperServicePort().submitContract(DESUtil.encrypt(contract,logonInfo.getSessionKey()),logonInfo.getUserId()));
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.dgsoft.developersale;
 
 import com.dgsoft.house.AttachCorpInfo;
+import com.dgsoft.house.AttachCorpType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,4 +71,14 @@ public class JsonAttachCorp implements AttachCorpInfo{
             return null;
         }
     }
+
+    public AttachCorpType getAttachCorpType() {
+        try {
+            return AttachCorpType.valueOf(jsonObject.getString("type"));
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+
 }
