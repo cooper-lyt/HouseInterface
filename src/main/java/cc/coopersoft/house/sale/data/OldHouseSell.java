@@ -30,10 +30,19 @@ public class OldHouseSell implements java.io.Serializable,PersonEntity {
     private HouseSellCompany houseSellCompany;
     private Set<HouseSellCompany> houseSellCompanies = new HashSet<HouseSellCompany>(0);
     private HouseSellInfo houseSellInfo;
+    private SellProxyPerson sellProxyPerson;
 
 
     public OldHouseSell() {
     }
+
+    public OldHouseSell(HouseQueryData houseQueryData) {
+        this.credentialsType = houseQueryData.getCredentialsType();
+        this.credentialsNumber = houseQueryData.getCredentialsNumber();
+        this.tel = houseQueryData.getOwnerTel();
+        this.personName = houseQueryData.getPersonName();
+    }
+
 
     @JsonProperty( "ID")
     public String getId() {
@@ -168,5 +177,13 @@ public class OldHouseSell implements java.io.Serializable,PersonEntity {
 
     public void setHouseSellInfo(HouseSellInfo houseSellInfo) {
         this.houseSellInfo = houseSellInfo;
+    }
+
+    public SellProxyPerson getSellProxyPerson() {
+        return sellProxyPerson;
+    }
+
+    public void setSellProxyPerson(SellProxyPerson sellProxyPerson) {
+        this.sellProxyPerson = sellProxyPerson;
     }
 }
