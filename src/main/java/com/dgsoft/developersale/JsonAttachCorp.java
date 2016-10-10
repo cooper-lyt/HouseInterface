@@ -5,6 +5,8 @@ import com.dgsoft.house.AttachCorpType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 /**
  * Created by cooper on 9/18/15.
  */
@@ -70,6 +72,18 @@ public class JsonAttachCorp implements AttachCorpInfo{
         } catch (JSONException e) {
             return null;
         }
+    }
+
+    public Date getDateTo() {
+        try {
+            return new Date(jsonObject.getLong("checkDateTo"));
+        }catch (JSONException e){
+            return null;
+        }
+    }
+
+    public int getServiceDay() {
+        return (int) ((getDateTo().getTime() - new Date().getTime()) / (1000*3600*24));
     }
 
     public AttachCorpType getAttachCorpType() {

@@ -1,5 +1,7 @@
 package com.dgsoft.house;
 
+import java.util.Date;
+
 /**
  * Created by cooper on 9/18/15.
  */
@@ -18,6 +20,10 @@ public interface AttachCorpInfo {
     String getOwnerPerson();
 
     String getOwnerTel();
+
+    Date getDateTo();
+
+    int getServiceDay();
 
     AttachCorpType getAttachCorpType();
 
