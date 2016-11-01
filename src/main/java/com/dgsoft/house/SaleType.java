@@ -4,7 +4,7 @@ package com.dgsoft.house;
  * Created by cooper on 9/6/15.
  */
 public enum SaleType {
-    NOW_SELL("NN","v2"), MAP_SELL("MN", "v2"), OLD_SELL("OH","v1");
+    NOW_SELL("NN","v1","v2"), MAP_SELL("MN","v1","v2"), OLD_SELL("OH","v1");
 
     String numberPrefx;
 

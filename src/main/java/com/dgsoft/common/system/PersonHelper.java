@@ -52,7 +52,7 @@ public class PersonHelper<E extends PersonEntity>  {
         if (credentialsNumber == null){
             getPersonEntity().setCredentialsNumber(credentialsNumber);
         }else
-            getPersonEntity().setCredentialsNumber(credentialsNumber.trim());
+            getPersonEntity().setCredentialsNumber(credentialsNumber.trim().toUpperCase());
     }
 
     public String getPersonName() {
