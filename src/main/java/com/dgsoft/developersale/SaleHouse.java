@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by cooper on 9/4/15.
  */
-public class SaleHouse implements HouseInfo {
+public class SaleHouse {
 
     private final static EnumSet<HouseStatus> ALLOW_SALE_STATUS = EnumSet.of(HouseStatus.PROJECT_PLEDGE, HouseStatus.INIT_REG_CONFIRM, HouseStatus.INIT_REG);
 

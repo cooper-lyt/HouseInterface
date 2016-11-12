@@ -1,7 +1,5 @@
 package cc.coopersoft.comm.exception;
 
-import java.io.IOException;
-
 /**
  * Created by cooper on 9/23/16.
  */

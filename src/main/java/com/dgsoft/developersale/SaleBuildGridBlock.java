@@ -21,7 +21,7 @@ public class SaleBuildGridBlock implements BuildGridMapBlockInfo {
 
     private int rowspan;
 
-    private HouseInfo house;
+    private SaleHouse house;
 
 
 
@@ -55,11 +55,11 @@ public class SaleBuildGridBlock implements BuildGridMapBlockInfo {
 
     }
 
-    public HouseInfo getHouse() {
+    public SaleHouse getHouse() {
         return house;
     }
 
-    public void setHouse(HouseInfo house) {
+    public void setHouse(SaleHouse house) {
         this.house = house;
     }
 

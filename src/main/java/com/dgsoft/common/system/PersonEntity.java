@@ -20,17 +20,16 @@ public interface PersonEntity {
         }
     }
 
-    public CredentialsType getCredentialsType();
+    CredentialsType getCredentialsType();
 
-    public void setCredentialsType(CredentialsType credentialsType);
+    void setCredentialsType(CredentialsType credentialsType);
 
-    public String getCredentialsNumber();
+    String getCredentialsNumber();
 
-    public void setCredentialsNumber(String credentialsNumber);
+    void setCredentialsNumber(String credentialsNumber);
 
-    public String getPersonName();
+    String getPersonName();
 
-    public void setPersonName(String personName);
-
+    void setPersonName(String personName);
 
 }

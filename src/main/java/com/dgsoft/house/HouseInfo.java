@@ -1,5 +1,7 @@
 package com.dgsoft.house;
 
+import cc.coopersoft.house.UseType;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -30,7 +32,9 @@ public interface HouseInfo extends BuildInfo {
 
     public String getHouseType();
 
-    public String getUseType();
+    public UseType getUseType();
+
+    public String getDesignUseType();
 
     public String getKnotSize();
 
@@ -55,6 +59,8 @@ public interface HouseInfo extends BuildInfo {
 
 
     public String getDisplayHouseCode();
+
+    public String getUnitNumber();
 
     //public LockStatus getLockStatus();
 }
