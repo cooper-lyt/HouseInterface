@@ -1,5 +1,7 @@
 package cc.coopersoft.house.sale.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -9,6 +11,7 @@ import javax.validation.constraints.Size;
 public class ContractNumber implements java.io.Serializable  {
 
     private String contractNumber;
+    @JsonIgnore
     private HouseContract houseContract;
     private String ownerName;
     private String password;

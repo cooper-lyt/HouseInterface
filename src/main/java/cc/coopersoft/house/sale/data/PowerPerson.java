@@ -3,6 +3,8 @@ package cc.coopersoft.house.sale.data;
 import com.dgsoft.common.system.OwnerPersonEntity;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.common.system.Sex;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -20,7 +22,6 @@ public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
         BUYER,SELLER
     }
 
-
     private String id;
     private String personName;
     private PersonEntity.CredentialsType credentialsType;
@@ -30,6 +31,7 @@ public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
     private BigDecimal poolPerc;
 
     private String legalPerson;
+    @JsonIgnore
     private HouseContract houseContract;
     private LegalType legalType;
 
@@ -45,13 +47,20 @@ public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
     private ContractPersonType contractPersonType;
     private PowerProxyPerson powerProxyPerson;
 
+    @JsonIgnore
+    private String fingerprint;
+
+    @JsonIgnore
+    private String paperCopyInfo;
+
     public PowerPerson() {
     }
 
-    public PowerPerson(HouseContract houseContract, ContractPersonType contractPersonType, int pri) {
+    public PowerPerson(String id,HouseContract houseContract, ContractPersonType contractPersonType, int pri) {
         this.houseContract = houseContract;
         this.contractPersonType = contractPersonType;
         this.pri = pri;
+        this.id = id;
     }
 
     @NotNull
@@ -225,4 +234,19 @@ public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
     }
 
 
+    public String getFingerprint() {
+        return fingerprint;
+    }
+
+    public void setFingerprint(String fingerprint) {
+        this.fingerprint = fingerprint;
+    }
+
+    public String getPaperCopyInfo() {
+        return paperCopyInfo;
+    }
+
+    public void setPaperCopyInfo(String paperCopyInfo) {
+        this.paperCopyInfo = paperCopyInfo;
+    }
 }

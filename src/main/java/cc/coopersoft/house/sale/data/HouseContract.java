@@ -1,7 +1,9 @@
 package cc.coopersoft.house.sale.data;
 
 import com.dgsoft.house.PoolType;
+import com.dgsoft.house.SalePayType;
 import com.dgsoft.house.SaleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,7 +46,13 @@ public class HouseContract implements java.io.Serializable {
 
     private SaleProxyPerson saleProxyPerson;
 
+    private SalePayType salePayType;
 
+
+    @JsonIgnore
+    private int version;
+    @JsonIgnore
+    private String contractIndex;
 
 
     public HouseContract() {
@@ -183,6 +191,15 @@ public class HouseContract implements java.io.Serializable {
         this.houseArea = houseArea;
     }
 
+    @NotNull
+    public SalePayType getSalePayType() {
+        return salePayType;
+    }
+
+    public void setSalePayType(SalePayType salePayType) {
+        this.salePayType = salePayType;
+    }
+
     public Set<PowerPerson> getPowerPersons() {
         return powerPersons;
     }
@@ -254,5 +271,23 @@ public class HouseContract implements java.io.Serializable {
             }
         });
         return result;
+    }
+
+
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public String getContractIndex() {
+        return contractIndex;
+    }
+
+    public void setContractIndex(String contractIndex) {
+        this.contractIndex = contractIndex;
     }
 }

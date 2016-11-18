@@ -1,5 +1,7 @@
 package cc.coopersoft.house.sale.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -12,9 +14,15 @@ public class OldHouseContract implements java.io.Serializable {
     private String id;
     private boolean control;
 
+    @JsonIgnore
     private HouseContract houseContract;
 
     public OldHouseContract() {
+    }
+
+    public OldHouseContract(HouseContract houseContract) {
+        this.houseContract = houseContract;
+        this.id = houseContract.getId();
     }
 
     @NotNull
@@ -33,6 +41,7 @@ public class OldHouseContract implements java.io.Serializable {
 
     public void setHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
+        this.id = houseContract.getId();
     }
 
     public boolean isControl() {

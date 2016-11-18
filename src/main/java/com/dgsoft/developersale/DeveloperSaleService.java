@@ -162,18 +162,4 @@ public abstract class DeveloperSaleService {
         }
     }
 
-    public CommitResult commitContract(AttachCorpLogonInfo logonInfo, String contract){
-        try {
-            return CommitResult.valueOf(webService.getDeveloperServicePort().submitContract(DESUtil.encrypt(contract,logonInfo.getSessionKey()),logonInfo.getUserId()));
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-
-
-    public enum CommitResult{
-        COMMIT_OK, CONTRACT_NUMBER_ERROR, HOUSE_ERROR, ERROR
-    }
-
 }

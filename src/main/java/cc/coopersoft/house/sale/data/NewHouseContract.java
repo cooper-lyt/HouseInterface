@@ -1,6 +1,6 @@
 package cc.coopersoft.house.sale.data;
 
-import com.dgsoft.house.SalePayType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,12 +12,13 @@ public class NewHouseContract implements java.io.Serializable{
 
     private String id;
 
-    private SalePayType salePayType;
+
     private String projectCode;
 
 
     private String projectCerNumber;
 
+    @JsonIgnore
     private HouseContract houseContract;
 
     public NewHouseContract() {
@@ -25,6 +26,7 @@ public class NewHouseContract implements java.io.Serializable{
 
     public NewHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
+        this.id = houseContract.getId();
     }
 
 
@@ -44,6 +46,7 @@ public class NewHouseContract implements java.io.Serializable{
 
     public void setHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
+        this.id = houseContract.getId();
     }
 
     @Size(max = 32)
@@ -64,17 +67,6 @@ public class NewHouseContract implements java.io.Serializable{
     public void setProjectCerNumber(String projectCerNumber) {
         this.projectCerNumber = projectCerNumber;
     }
-
-
-    @NotNull
-    public SalePayType getSalePayType() {
-        return salePayType;
-    }
-
-    public void setSalePayType(SalePayType salePayType) {
-        this.salePayType = salePayType;
-    }
-
 
 
 

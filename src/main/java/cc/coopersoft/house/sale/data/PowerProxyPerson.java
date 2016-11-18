@@ -3,6 +3,7 @@ package cc.coopersoft.house.sale.data;
 import cc.coopersoft.house.ProxyType;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.common.system.Sex;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,11 +25,18 @@ public class PowerProxyPerson implements PersonEntity, java.io.Serializable {
     private String rootAddress;
     private String address;
 
+    @JsonIgnore
     private PowerPerson powerPerson;
 
     private Date birthday;
     private Sex sex;
     private String postCode;
+
+    @JsonIgnore
+    private String fingerprint;
+
+    @JsonIgnore
+    private String paperCopyInfo;
 
 
     public PowerProxyPerson() {
@@ -36,6 +44,7 @@ public class PowerProxyPerson implements PersonEntity, java.io.Serializable {
 
     public PowerProxyPerson(PowerPerson powerPerson) {
         this.powerPerson = powerPerson;
+        this.id = powerPerson.getId();
     }
 
     @NotNull
@@ -54,6 +63,7 @@ public class PowerProxyPerson implements PersonEntity, java.io.Serializable {
 
     public void setPowerPerson(PowerPerson powerPerson) {
         this.powerPerson = powerPerson;
+        this.id = powerPerson.getId();
     }
 
     @NotNull
@@ -145,6 +155,23 @@ public class PowerProxyPerson implements PersonEntity, java.io.Serializable {
 
     public void setPostCode(String postCode) {
         this.postCode = postCode;
+    }
+
+
+    public String getFingerprint() {
+        return fingerprint;
+    }
+
+    public void setFingerprint(String fingerprint) {
+        this.fingerprint = fingerprint;
+    }
+
+    public String getPaperCopyInfo() {
+        return paperCopyInfo;
+    }
+
+    public void setPaperCopyInfo(String paperCopyInfo) {
+        this.paperCopyInfo = paperCopyInfo;
     }
 
 }

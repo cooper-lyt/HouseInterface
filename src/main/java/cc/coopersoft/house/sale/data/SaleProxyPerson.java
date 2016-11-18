@@ -1,6 +1,7 @@
 package cc.coopersoft.house.sale.data;
 
 import com.dgsoft.common.system.PersonEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,6 +18,7 @@ public class SaleProxyPerson implements PersonEntity, java.io.Serializable{
     private String credentialsNumber;
     private String tel;
     private Date createTime;
+    @JsonIgnore
     private HouseContract houseContract;
 
     public SaleProxyPerson() {
@@ -25,6 +27,7 @@ public class SaleProxyPerson implements PersonEntity, java.io.Serializable{
     public SaleProxyPerson(HouseContract houseContract) {
         this.houseContract = houseContract;
         createTime = new Date();
+        this.id = houseContract.getId();
     }
 
     @NotNull
@@ -43,6 +46,7 @@ public class SaleProxyPerson implements PersonEntity, java.io.Serializable{
 
     public void setHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
+        this.id = houseContract.getId();
     }
 
 
