@@ -30,7 +30,7 @@ public interface HouseInfo extends BuildInfo {
 
     public BigDecimal getCommParam();
 
-    public String getHouseType();
+    public HouseProperty getHouseType();
 
     public UseType getUseType();
 

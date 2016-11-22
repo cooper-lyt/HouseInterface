@@ -7,13 +7,17 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.util.List;
 
 /**
  * Created by cooper on 9/25/16.
@@ -126,6 +130,27 @@ public class HttpJsonDataGet {
         }
         is.close();
         return sb.toString();
+    }
+
+    public static HttpResponse postData(String address, List<NameValuePair> params) throws IOException {
+        HttpPost httpPost = new HttpPost(address);
+        httpPost.setHeader("Accept-Charset", "UTF-8");
+        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+        httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+        CloseableHttpClient closeableHttpClient = httpClientBuilder.build();
+
+
+        HttpResponse httpResponse = closeableHttpClient.execute(httpPost);
+        int responseCode = httpResponse.getStatusLine().getStatusCode();
+
+        if (responseCode == HttpStatus.SC_MOVED_PERMANENTLY
+                || responseCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+            //System.out.println("resend to: " + httpResponse.getLastHeader("Location").getValue());
+            return postData(httpResponse.getLastHeader("Location").getValue(), params);
+        }else{
+            return httpResponse;
+        }
     }
 
 }

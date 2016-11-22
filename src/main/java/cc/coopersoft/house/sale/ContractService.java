@@ -28,24 +28,19 @@ public class ContractService {
         if (!postAddress.endsWith("/")){
             postAddress += "/";
         }
-
-        HttpPost httpPost = new HttpPost(postAddress + "interfaces/contractSubmit/saleContract/" + logonInfo.getUserId());
+        postAddress += "interfaces/contractSubmit/saleContract/" + logonInfo.getUserId();
 
         List<NameValuePair> values = new ArrayList<NameValuePair>();
 
         values.add(new BasicNameValuePair("contract", DESUtil.encrypt(contract,logonInfo.getSessionKey())));
 
-        httpPost.setEntity(new UrlEncodedFormEntity(values, "UTF-8"));
 
-        httpPost.setHeader("Accept-Charset", "UTF-8");
-        httpPost.setHeader("Content-Type", "text/xml; charset=utf-8");
-
-        HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-        CloseableHttpClient closeableHttpClient = httpClientBuilder.build();
-
-        HttpResponse httpResponse =  closeableHttpClient.execute(httpPost);
+        HttpResponse httpResponse = HttpJsonDataGet.postData(postAddress,values);
 
         int responseCode =  httpResponse.getStatusLine().getStatusCode();
+
+        //System.out.println("return code :" + responseCode);
+
         if (HttpStatus.SC_OK == responseCode) {
             return HttpJsonDataGet.convertStreamToString(httpResponse.getEntity().getContent()) ;
         }else{

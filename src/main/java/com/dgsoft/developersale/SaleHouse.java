@@ -1,9 +1,6 @@
 package com.dgsoft.developersale;
 
-import com.dgsoft.house.HouseInfo;
-import com.dgsoft.house.HouseStatus;
-import com.dgsoft.house.PledgeInfo;
-import com.dgsoft.house.SaleType;
+import com.dgsoft.house.*;
 import com.dgsoft.house.impl.HousePledgeInfo;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +31,7 @@ public class SaleHouse {
     private BigDecimal shineArea;
     private BigDecimal loftArea;
     private BigDecimal commParam;
-    private String houseType;
+    private HouseProperty houseType;
     private String useType;
     private String structure;
     private String knotSize;
@@ -70,7 +67,7 @@ public class SaleHouse {
 
 
     private SaleStatus getSaleStatus(){
-        if (isLocked() || (getHouseType() != null && !getHouseType().trim().equals(""))){
+        if (isLocked() || HouseProperty.SALE_HOUSE.equals(getHouseType())){
             return SaleStatus.NO_SALE;
         }
         if (isSaled()){
@@ -211,7 +208,7 @@ public class SaleHouse {
             commParam = null;
         }
         try {
-            houseType = jsonObject.getString("houseType");
+            houseType = HouseProperty.valueOf(jsonObject.getString("houseType"));
         } catch (JSONException e) {
             houseType = null;
         }
@@ -417,11 +414,11 @@ public class SaleHouse {
         this.commParam = commParam;
     }
 
-    public String getHouseType() {
+    public HouseProperty getHouseType() {
         return houseType;
     }
 
-    public void setHouseType(String houseType) {
+    public void setHouseType(HouseProperty houseType) {
         this.houseType = houseType;
     }
 
