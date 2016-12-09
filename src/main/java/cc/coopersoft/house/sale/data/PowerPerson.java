@@ -1,8 +1,6 @@
 package cc.coopersoft.house.sale.data;
 
-import com.dgsoft.common.system.OwnerPersonEntity;
-import com.dgsoft.common.system.PersonEntity;
-import com.dgsoft.common.system.Sex;
+import com.dgsoft.common.system.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
@@ -14,9 +12,7 @@ import java.util.Date;
  * Created by cooper on 9/15/15.
  */
 
-public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
-
-
+public class PowerPerson implements PowerPersonEntity, java.io.Serializable {
 
     public enum ContractPersonType{
         BUYER,SELLER
@@ -45,7 +41,7 @@ public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
 
     private int pri;
     private ContractPersonType contractPersonType;
-    private PowerProxyPerson powerProxyPerson;
+    private ProxyPersonEntity powerProxyPerson;
 
     @JsonIgnore
     private String fingerprint;
@@ -225,11 +221,11 @@ public class PowerPerson implements OwnerPersonEntity, java.io.Serializable {
         this.contractPersonType = contractPersonType;
     }
 
-    public PowerProxyPerson getPowerProxyPerson() {
+    public ProxyPersonEntity getPowerProxyPerson() {
         return powerProxyPerson;
     }
 
-    public void setPowerProxyPerson(PowerProxyPerson powerProxyPerson) {
+    public void setPowerProxyPerson(ProxyPersonEntity powerProxyPerson) {
         this.powerProxyPerson = powerProxyPerson;
     }
 

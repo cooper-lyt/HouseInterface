@@ -2,6 +2,7 @@ package cc.coopersoft.house.sale.data;
 
 import cc.coopersoft.house.ProxyType;
 import com.dgsoft.common.system.PersonEntity;
+import com.dgsoft.common.system.ProxyPersonEntity;
 import com.dgsoft.common.system.Sex;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 /**
  * Created by cooper on 9/27/16.
  */
-public class PowerProxyPerson implements PersonEntity, java.io.Serializable {
+public class PowerProxyPerson implements ProxyPersonEntity, java.io.Serializable {
 
     private String id;
     private ProxyType proxyType;
