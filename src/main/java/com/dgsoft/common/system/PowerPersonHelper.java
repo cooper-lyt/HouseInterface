@@ -9,38 +9,45 @@ import java.math.BigDecimal;
  */
 public abstract class PowerPersonHelper<T extends PowerPersonEntity> extends OwnerPersonHelper<T> {
 
-    protected abstract ProxyPersonEntity createProxyPerson();
 
-    private PersonHelper<ProxyPersonEntity> proxyPersonHelper = new PersonHelper<ProxyPersonEntity>();
+    private BigDecimal houseArea;
 
     public PowerPersonHelper(T entity, BigDecimal houseArea) {
-        super(entity, houseArea);
+        super(entity);
+        this.houseArea = houseArea;
     }
 
-    public ProxyType getProxyType() {
-        if (getPersonEntity().getPowerProxyPerson() == null){
-            return null;
+    public BigDecimal getHouseArea() {
+        return houseArea;
+    }
+
+    public void setHouseArea(BigDecimal houseArea) {
+        this.houseArea = houseArea;
+    }
+
+    public BigDecimal getPoolPerc(){
+        return getPersonEntity().getPoolPerc();
+    }
+
+    public void setPoolPerc(BigDecimal perc){
+        getPersonEntity().setPoolPerc(perc);
+        if (perc != null) {
+            getPersonEntity().setPoolArea(houseArea.multiply(perc.divide(new BigDecimal(100))));
         }else{
-            return getPersonEntity().getPowerProxyPerson().getProxyType();
+            getPersonEntity().setPoolArea(null);
         }
-
     }
 
-    public void setProxyType(ProxyType proxyType) {
-        if (proxyType == null){
-            getPersonEntity().setPowerProxyPerson(null);
-            proxyPersonHelper.setPersonEntity(null);
+    public BigDecimal getPoolArea(){
+        return getPersonEntity().getPoolArea();
+    }
+
+    public void setPoolArea(BigDecimal area){
+        getPersonEntity().setPoolArea(area);
+        if (area != null){
+            getPersonEntity().setPoolPerc(area.divide(houseArea).multiply(new BigDecimal(100)));
         }else{
-            if (getPersonEntity().getPowerProxyPerson() == null){
-                //new PowerProxyPerson(getPersonEntity())
-                getPersonEntity().setPowerProxyPerson(createProxyPerson());
-                proxyPersonHelper.setPersonEntity( getPersonEntity().getPowerProxyPerson());
-            }
-            getPersonEntity().getPowerProxyPerson().setProxyType(proxyType);
+            getPersonEntity().setPoolPerc(null);
         }
-    }
-
-    public PersonHelper<ProxyPersonEntity> getProxyPersonHelper() {
-        return proxyPersonHelper;
     }
 }

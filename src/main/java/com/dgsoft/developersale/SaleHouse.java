@@ -67,7 +67,8 @@ public class SaleHouse {
 
 
     private SaleStatus getSaleStatus(){
-        if (isLocked() || HouseProperty.SALE_HOUSE.equals(getHouseType())){
+        if (isLocked() || (getHouseType() == null)  ||
+            (!HouseProperty.SALE_HOUSE.equals(getHouseType()) && !HouseProperty.LIMIT_PRICE_HOUSE.equals(getHouseType()))){
             return SaleStatus.NO_SALE;
         }
         if (isSaled()){

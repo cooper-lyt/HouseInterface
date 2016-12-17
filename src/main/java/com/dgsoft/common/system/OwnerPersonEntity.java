@@ -8,29 +8,9 @@ import java.util.List;
  */
 public interface OwnerPersonEntity extends PersonEntity{
 
-    public enum LegalType{
-        LEGAL_OWNER,LEGAL_MANAGER
-    }
+    ProxyPersonEntity getPowerProxyPerson();
 
-    BigDecimal getPoolPerc();
-
-    void setPoolPerc(BigDecimal perc);
-
-    BigDecimal getPoolArea();
-
-    void setPoolArea(BigDecimal area);
-
-    LegalType getLegalType();
-
-    void setLegalType(LegalType legalType);
-
-    String getLegalPerson();
-
-    void setLegalPerson(String legalPerson);
-
-    String getRootAddress();
-
-    void setRootAddress(String address);
+    void setPowerProxyPerson(ProxyPersonEntity proxyPerson);
 
 
 }

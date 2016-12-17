@@ -43,8 +43,6 @@ public class PowerPerson implements PowerPersonEntity, java.io.Serializable {
     private ContractPersonType contractPersonType;
     private ProxyPersonEntity powerProxyPerson;
 
-    @JsonIgnore
-    private String fingerprint;
 
     @JsonIgnore
     private String paperCopyInfo;
@@ -152,7 +150,7 @@ public class PowerPerson implements PowerPersonEntity, java.io.Serializable {
         this.houseContract = houseContract;
     }
 
-    public OwnerPersonEntity.LegalType getLegalType() {
+    public PowerPerson.LegalType getLegalType() {
         return legalType;
     }
 
@@ -229,14 +227,6 @@ public class PowerPerson implements PowerPersonEntity, java.io.Serializable {
         this.powerProxyPerson = powerProxyPerson;
     }
 
-
-    public String getFingerprint() {
-        return fingerprint;
-    }
-
-    public void setFingerprint(String fingerprint) {
-        this.fingerprint = fingerprint;
-    }
 
     public String getPaperCopyInfo() {
         return paperCopyInfo;
