@@ -41,7 +41,7 @@ public class PowerPerson implements PowerPersonEntity, java.io.Serializable {
 
     private int pri;
     private ContractPersonType contractPersonType;
-    private ProxyPersonEntity powerProxyPerson;
+    private PowerProxyPerson proxyPerson;
 
 
     @JsonIgnore
@@ -219,14 +219,23 @@ public class PowerPerson implements PowerPersonEntity, java.io.Serializable {
         this.contractPersonType = contractPersonType;
     }
 
+    @JsonIgnore
     public ProxyPersonEntity getPowerProxyPerson() {
-        return powerProxyPerson;
+        return getProxyPerson();
     }
 
+    @JsonIgnore
     public void setPowerProxyPerson(ProxyPersonEntity powerProxyPerson) {
-        this.powerProxyPerson = powerProxyPerson;
+        setProxyPerson((PowerProxyPerson) powerProxyPerson);
     }
 
+    public PowerProxyPerson getProxyPerson() {
+        return proxyPerson;
+    }
+
+    public void setProxyPerson(PowerProxyPerson proxyPerson) {
+        this.proxyPerson = proxyPerson;
+    }
 
     public String getPaperCopyInfo() {
         return paperCopyInfo;
