@@ -1,15 +1,8 @@
 package com.dgsoft.developersale;
 
 import com.dgsoft.house.BuildGridMapBlockInfo;
-import com.dgsoft.house.HouseInfo;
-import com.dgsoft.house.PledgeInfo;
-import com.dgsoft.house.impl.HousePledgeInfo;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cooper on 9/7/15.
@@ -22,9 +15,6 @@ public class SaleBuildGridBlock implements BuildGridMapBlockInfo {
     private int rowspan;
 
     private SaleHouse house;
-
-
-
 
 
     public SaleBuildGridBlock(JSONObject jsonObject) {
