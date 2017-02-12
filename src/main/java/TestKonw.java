@@ -1,4 +1,5 @@
 import cc.coopersoft.comm.exception.HttpApiServerException;
+import cc.coopersoft.comm.tools.IdCardUtils;
 import cc.coopersoft.house.sale.HouseSellService;
 import cc.coopersoft.house.sale.data.HouseQueryData;
 
@@ -8,13 +9,9 @@ import cc.coopersoft.house.sale.data.HouseQueryData;
 public class TestKonw {
 
     public static void main(String[] args){
-        try {
-            //System.out.println( HouseSellService.querySellHouse("http://localhost:6699/",new HouseQueryData("10","32120","1","202")).getHouse().getHouseCode());
-            System.out.println( HouseSellService.listDistrict("http://localhost:6699/").size());
+     System.out.println(IdCardUtils.conver18CardTo15("220621198206120537"));
 
-        } catch (HttpApiServerException e) {
-            e.printStackTrace();
-        }
+
     }
 
 

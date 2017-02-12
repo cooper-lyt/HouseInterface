@@ -115,6 +115,17 @@ public class IdCardUtils {
         hkFirstCode.put("N", 14);
     }
 
+    public static String conver18CardTo15(String idCard){
+        if (idCard.length() != CHINA_ID_MAX_LENGTH) {
+            return null;
+        }
+        if (isNum(idCard)) {
+
+            return idCard.substring(0, 6) +  idCard.substring(8, 14) + idCard.substring(14, 17);
+        }
+        return null;
+    }
+
     /**
      * 将15位身份证号码转换为18位
      *
