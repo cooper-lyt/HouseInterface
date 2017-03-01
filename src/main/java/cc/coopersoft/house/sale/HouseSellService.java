@@ -4,6 +4,7 @@ import cc.coopersoft.comm.District;
 import cc.coopersoft.comm.HttpJsonDataGet;
 import cc.coopersoft.comm.exception.HttpApiServerException;
 import cc.coopersoft.house.sale.data.HouseQueryData;
+import cc.coopersoft.house.sale.data.LoginResult;
 import cc.coopersoft.house.sale.data.OldHouseQueryResult;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -51,11 +52,14 @@ public class HouseSellService {
                 + "&unit=" + houseQueryData.getUnitNumber();
 
 
-            //System.out.println(URLEncoder.encode(address,"UTF-8"));
-
         return HttpJsonDataGet.getData(address,OldHouseQueryResult.class);
+    }
 
-
+    public static LoginResult login(String address, String uid,String password,String rnd) throws HttpApiServerException {
+        address += "/api/public/attr-logon?uid=" + uid
+            + "&rnd=" + rnd
+            + "&digest=" + password;
+        return HttpJsonDataGet.getData(address,LoginResult.class);
     }
 
 }

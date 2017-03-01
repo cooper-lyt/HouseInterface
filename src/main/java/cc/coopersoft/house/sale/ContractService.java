@@ -3,15 +3,10 @@ package cc.coopersoft.house.sale;
 import cc.coopersoft.comm.HttpJsonDataGet;
 import cc.coopersoft.comm.exception.HttpApiServerException;
 import com.dgsoft.developersale.AttachCorpLogonInfo;
-import com.dgsoft.developersale.DeveloperSaleService;
 import com.dgsoft.developersale.wsinterface.DESUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
