@@ -36,6 +36,7 @@ public class ContractService {
 
         //System.out.println("return code :" + responseCode);
 
+
         if (HttpStatus.SC_OK == responseCode) {
             return HttpJsonDataGet.convertStreamToString(httpResponse.getEntity().getContent()) ;
         }else{

@@ -1,8 +1,9 @@
 import cc.coopersoft.comm.exception.HttpApiServerException;
 import cc.coopersoft.comm.tools.IdCardUtils;
+import cc.coopersoft.house.LockType;
 import cc.coopersoft.house.sale.HouseSellService;
 import cc.coopersoft.house.sale.data.AttrEmp;
-import cc.coopersoft.house.sale.data.HouseQueryData;
+import cc.coopersoft.house.sale.data.HouseValidResult;
 import cc.coopersoft.house.sale.data.LoginResult;
 import cc.coopersoft.house.sale.data.Seller;
 import com.dgsoft.common.system.PersonEntity;
@@ -66,6 +67,16 @@ public class TestKonw {
             e1.printStackTrace();
         }
 
+
+        System.out.println("---------");
+        HouseValidResult r =  new HouseValidResult();
+        //r.getLimits().add(new HouseValidResult.Limit(LockType.CANT_SALE,"dddd"));
+        try {
+            data = mapper.writeValueAsString(r);
+            System.out.println(data);
+        } catch (JsonProcessingException e1) {
+            e1.printStackTrace();
+        }
     }
 
 
