@@ -1,11 +1,10 @@
+import cc.coopersoft.comm.District;
+import cc.coopersoft.comm.HttpJsonDataGet;
 import cc.coopersoft.comm.exception.HttpApiServerException;
 import cc.coopersoft.comm.tools.IdCardUtils;
 import cc.coopersoft.house.LockType;
 import cc.coopersoft.house.sale.HouseSellService;
-import cc.coopersoft.house.sale.data.AttrEmp;
-import cc.coopersoft.house.sale.data.HouseValidResult;
-import cc.coopersoft.house.sale.data.LoginResult;
-import cc.coopersoft.house.sale.data.Seller;
+import cc.coopersoft.house.sale.data.*;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.LogonStatus;
 import com.dgsoft.house.AttachCorpType;
@@ -13,7 +12,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by cooper on 9/23/16.
@@ -77,6 +78,25 @@ public class TestKonw {
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
         }
+
+        System.out.println("1---------");
+
+        String pp = "[{\"PRI\":1,\"ID\":\"0000002\",\"TYPE\":\"SALE\",\"DISTRICT\":\"DL1\",\"NAME\":\"桥南\",\"ENABLE\":1},{\"PRI\":2,\"ID\":\"0000003\",\"TYPE\":\"SALE\",\"DISTRICT\":\"DL!\",\"NAME\":\"无效\",\"ENABLE\":0}]";
+        try {
+            List<SaleArea> ss =  mapper.readValue(pp, HttpJsonDataGet.getCollectionType(ArrayList.class, SaleArea.class));
+            System.out.println("E:" + ss.get(0).isEnable());
+        } catch (JsonProcessingException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        try {
+            System.out.println("ER:" + HouseSellService.listAllSaleArea("http://127.0.0.1:6699/").size());
+        } catch (HttpApiServerException e1) {
+            e1.printStackTrace();
+        }
+
     }
 
 

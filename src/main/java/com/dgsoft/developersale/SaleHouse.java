@@ -58,6 +58,7 @@ public class SaleHouse {
     private boolean haveDownRoom;
 
     private String ownerCardNumber;
+    private boolean oldCard;
 
     private Date landEndUseTime;
 
@@ -263,6 +264,12 @@ public class SaleHouse {
             ownerCardNumber = jsonObject.getString("ownerCardNumber");
         } catch (JSONException e) {
             ownerCardNumber = null;
+        }
+
+        try {
+            oldCard = jsonObject.getBoolean("oldOwnerCard");
+        }catch (JSONException e) {
+            oldCard = true;
         }
 
 
@@ -613,6 +620,13 @@ public class SaleHouse {
         this.ownerCardNumber = ownerCardNumber;
     }
 
+    public boolean isOldCard() {
+        return oldCard;
+    }
+
+    public void setOldCard(boolean oldCard) {
+        this.oldCard = oldCard;
+    }
 
     public Date getLandEndUseTime() {
         return landEndUseTime;

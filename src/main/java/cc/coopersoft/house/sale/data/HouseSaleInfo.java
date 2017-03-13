@@ -15,7 +15,7 @@ import java.util.Date;
 public class HouseSaleInfo implements java.io.Serializable{
 
     public enum HouseSourceStatus{
-        SUBMIT,PREPARE,CHECK,CANCEL,SELL
+        SUBMIT,PREPARE,CHECK,CANCEL,SELL,SHOWING,CHECK_PASS
     }
 
     public enum SaleType{
@@ -34,6 +34,7 @@ public class HouseSaleInfo implements java.io.Serializable{
     private Integer zoom;
     private int roomCount;
     private int livingRoom;
+    private String district;
     private String localArea;
     private String schoolArea;
     private String metroArea;
@@ -56,7 +57,6 @@ public class HouseSaleInfo implements java.io.Serializable{
     private String structure;
     private String address;
     private String saleTitle;
-
 
     private HouseSource houseSource;
 
@@ -148,6 +148,17 @@ public class HouseSaleInfo implements java.io.Serializable{
 
     public void setLivingRoom(int livingRoom) {
         this.livingRoom = livingRoom;
+    }
+
+    @JsonProperty("DISTRICT_CODE")
+    @Size(max = 32)
+    @NotNull
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     @Size(max = 32)

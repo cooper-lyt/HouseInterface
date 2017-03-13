@@ -6,6 +6,7 @@ import cc.coopersoft.comm.exception.HttpApiServerException;
 import cc.coopersoft.house.sale.data.HouseValidResult;
 import cc.coopersoft.house.sale.data.HouseValidInfo;
 import cc.coopersoft.house.sale.data.LoginResult;
+import cc.coopersoft.house.sale.data.SaleArea;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,23 +29,13 @@ public class HouseSellService {
             }
         });
         return result;
-
     }
-//
-//    public static OldHouseQueryResult querySellHouse(String address, HouseQueryData houseQueryData) throws HttpApiServerException {
-//            address += "/api/query-sell-house?type=" + houseQueryData.getHouseLocateType().name()
-//                + "&map=" +  houseQueryData.getMapNumber()
-//                + "&block=" + houseQueryData.getBlockNumber()
-//                + "&build=" + houseQueryData.getBuildNumber()
-//                + "&house=" + houseQueryData.getHouseOrder()
-//                + "&id=" + houseQueryData.getHouseCode()
-//                + "&unit=" + houseQueryData.getUnitNumber();
-//
-//
-//        return HttpJsonDataGet.getData(address,OldHouseQueryResult.class);
-//    }
 
-
+    public static List<SaleArea> listAllSaleArea(String address) throws HttpApiServerException{
+        address += "/api/public/list-sale-area";
+        List<SaleArea> result = HttpJsonDataGet.getData(address,null, HttpJsonDataGet.getCollectionType(ArrayList.class, SaleArea.class));
+        return result;
+    }
 
     public static LoginResult login(String address, String uid,String password,String rnd) throws HttpApiServerException {
         address += "/api/public/attr-logon";

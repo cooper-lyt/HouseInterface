@@ -10,16 +10,11 @@ import javax.validation.constraints.Size;
  */
 public class HouseSource implements PersonEntity, java.io.Serializable{
 
-    public enum ShowType{
-        TOW,SELF
-    }
-
     public HouseSource() {
     }
 
-    public HouseSource(String id, String groupId, ShowType showType, HouseValidInfo validInfo, HouseSaleInfo houseSaleInfo ){
+    public HouseSource(String id, String groupId, HouseValidInfo validInfo, HouseSaleInfo houseSaleInfo ){
         this.id = id;
-        this.showType = showType;
         this.groupId = groupId;
         this.powerCardNumber = validInfo.getPowerCardNumber();
         this.credentialsNumber = validInfo.getCredentialsNumber();
@@ -38,7 +33,7 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     private String personName;
     private String tel;
     private String groupId;
-    private ShowType showType;
+    private String checkView;
 
 
     private Long version;
@@ -112,14 +107,6 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
         this.version = version;
     }
 
-    @NotNull
-    public ShowType getShowType() {
-        return showType;
-    }
-
-    public void setShowType(ShowType showType) {
-        this.showType = showType;
-    }
 
     @NotNull
     @Size(max = 32)
@@ -137,5 +124,13 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
 
     public void setHouseSaleInfo(HouseSaleInfo houseSaleInfo) {
         this.houseSaleInfo = houseSaleInfo;
+    }
+
+    public String getCheckView() {
+        return checkView;
+    }
+
+    public void setCheckView(String checkView) {
+        this.checkView = checkView;
     }
 }
