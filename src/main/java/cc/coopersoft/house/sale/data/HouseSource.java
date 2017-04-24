@@ -4,6 +4,7 @@ import com.dgsoft.common.system.PersonEntity;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * Created by cooper on 23/02/2017.
@@ -39,6 +40,8 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     private Long version;
 
     private HouseSaleInfo houseSaleInfo;
+    private HouseSourceProxyPerson proxyPerson;
+    private Set<HouseSourceCompany> houseSourceCompanies;
 
     @NotNull
     @Size(max = 32)
@@ -132,5 +135,21 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
 
     public void setCheckView(String checkView) {
         this.checkView = checkView;
+    }
+
+    public HouseSourceProxyPerson getProxyPerson() {
+        return proxyPerson;
+    }
+
+    public void setProxyPerson(HouseSourceProxyPerson proxyPerson) {
+        this.proxyPerson = proxyPerson;
+    }
+
+    public Set<HouseSourceCompany> getHouseSourceCompanies() {
+        return houseSourceCompanies;
+    }
+
+    public void setHouseSourceCompanies(Set<HouseSourceCompany> houseSourceCompanies) {
+        this.houseSourceCompanies = houseSourceCompanies;
     }
 }
