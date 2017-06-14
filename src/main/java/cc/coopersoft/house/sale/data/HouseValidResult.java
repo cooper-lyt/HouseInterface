@@ -48,7 +48,7 @@ public class HouseValidResult {
     }
 
     private ValidStatus validStatus;
-    private HouseSaleInfo houseSaleInfo;
+    private HouseSource houseSource;
     private List<Limit> limits = new ArrayList<Limit>();
 
 
@@ -60,12 +60,12 @@ public class HouseValidResult {
         this.validStatus = validStatus;
     }
 
-    public HouseSaleInfo getHouseSaleInfo() {
-        return houseSaleInfo;
+    public HouseSource getHouseSource() {
+        return houseSource;
     }
 
-    public void setHouseSaleInfo(HouseSaleInfo houseSaleInfo) {
-        this.houseSaleInfo = houseSaleInfo;
+    public void setHouseSource(HouseSource houseSource) {
+        this.houseSource = houseSource;
     }
 
     public List<Limit> getLimits() {

@@ -1,15 +1,26 @@
 package cc.coopersoft.house.sale.data;
 
 import com.dgsoft.common.system.PersonEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Set;
 
 /**
  * Created by cooper on 23/02/2017.
  */
 public class HouseSource implements PersonEntity, java.io.Serializable{
+
+    public enum SaleType{
+        DEVELOPER,SELLER;
+    }
+
+    public enum HouseSourceStatus{
+        SUBMIT,PREPARE,CHECK,CANCEL,SELL,SHOWING,CHECK_PASS
+    }
 
     public HouseSource() {
     }
@@ -35,6 +46,18 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     private String tel;
     private String groupId;
     private String checkView;
+
+    private String houseCode;
+    private String sourceId;
+    private SaleType saleType;
+    private Date applyTime;
+    private HouseSourceStatus status;
+    private String searchKey;
+    private String saleTitle;
+    private Date checkTime;
+
+    @JsonIgnore
+    private HouseContract houseContract;
 
 
     private Long version;
@@ -152,4 +175,89 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     public void setHouseSourceCompanies(Set<HouseSourceCompany> houseSourceCompanies) {
         this.houseSourceCompanies = houseSourceCompanies;
     }
+
+
+    @JsonProperty("HOUSE_CODE")
+    @NotNull
+    @Size(max = 32)
+    public String getHouseCode() {
+        return houseCode;
+    }
+
+    public void setHouseCode(String houseCode) {
+        this.houseCode = houseCode;
+    }
+
+    @NotNull
+    public HouseSourceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(HouseSourceStatus status) {
+        this.status = status;
+    }
+
+    @NotNull
+    public SaleType getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(SaleType saleType) {
+        this.saleType = saleType;
+    }
+
+    public Date getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
+    }
+
+    @NotNull
+    @Size(max = 32)
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    @NotNull
+    public Date getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(Date applyTime) {
+        this.applyTime = applyTime;
+    }
+
+    @NotNull
+    @Size(max = 200)
+    public String getSaleTitle() {
+        return saleTitle;
+    }
+
+    public void setSaleTitle(String saleTitle) {
+        this.saleTitle = saleTitle;
+    }
+
+    @JsonIgnore
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
+
+    public HouseContract getHouseContract() {
+        return houseContract;
+    }
+
+    public void setHouseContract(HouseContract houseContract) {
+        this.houseContract = houseContract;
+    }
+
 }

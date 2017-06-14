@@ -1,6 +1,7 @@
 package cc.coopersoft.house.sale.data;
 
 import com.dgsoft.common.system.PersonEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by cooper on 24/04/2017.
@@ -13,6 +14,9 @@ public class HouseSourceProxyPerson implements PersonEntity, java.io.Serializabl
     private String credentialsNumber;
     private String personName;
     private String tel;
+
+    @JsonIgnore
+    private HouseSource houseSource;
 
     public HouseSourceProxyPerson() {
     }
@@ -55,5 +59,13 @@ public class HouseSourceProxyPerson implements PersonEntity, java.io.Serializabl
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public HouseSource getHouseSource() {
+        return houseSource;
+    }
+
+    public void setHouseSource(HouseSource houseSource) {
+        this.houseSource = houseSource;
     }
 }

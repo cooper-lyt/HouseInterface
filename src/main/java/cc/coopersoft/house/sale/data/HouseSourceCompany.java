@@ -8,7 +8,6 @@ public class HouseSourceCompany implements java.io.Serializable{
     private String id;
 
     private String groupId;
-    private boolean showing;
     private HouseSource houseSource;
 
     public HouseSourceCompany() {
@@ -28,14 +27,6 @@ public class HouseSourceCompany implements java.io.Serializable{
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
-    }
-
-    public boolean isShowing() {
-        return showing;
-    }
-
-    public void setShowing(boolean showing) {
-        this.showing = showing;
     }
 
     public HouseSource getHouseSource() {

@@ -1,27 +1,20 @@
 package cc.coopersoft.house.sale.data;
 
 import cc.coopersoft.house.UseType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by cooper on 26/02/2017.
  */
 
 public class HouseSaleInfo implements java.io.Serializable{
-
-    public enum HouseSourceStatus{
-        SUBMIT,PREPARE,CHECK,CANCEL,SELL,SHOWING,CHECK_PASS
-    }
-
-    public enum SaleType{
-        DEVELOPER,SELLER;
-    }
-
 
     private String id;
 
@@ -44,21 +37,15 @@ public class HouseSaleInfo implements java.io.Serializable{
     private boolean elevator;
     private String cover;
     private int inFloor;
-    private String houseCode;
-    private String sourceId;
-    private Date applyTime;
-    private HouseSourceStatus status;
-    private Date checkTime;
-    private SaleType saleType;
+
     private UseType useType;
     private String inFloorName;
     private BigDecimal houseArea;
     private BigDecimal useArea;
     private String structure;
     private String address;
-    private String saleTitle;
 
-    private HouseSource houseSource;
+    private Set<HouseSalePic> houseSalePics;
 
     public HouseSaleInfo() {
     }
@@ -238,71 +225,15 @@ public class HouseSaleInfo implements java.io.Serializable{
     public void setInFloor(int inFloor) {
         this.inFloor = inFloor;
     }
-
-    @JsonProperty("HOUSE_CODE")
-    @NotNull
-    @Size(max = 32)
-    public String getHouseCode() {
-        return houseCode;
-    }
-
-    public void setHouseCode(String houseCode) {
-        this.houseCode = houseCode;
-    }
-
-    @NotNull
-    public HouseSourceStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HouseSourceStatus status) {
-        this.status = status;
-    }
-
-    @NotNull
-    public SaleType getSaleType() {
-        return saleType;
-    }
-
-    public void setSaleType(SaleType saleType) {
-        this.saleType = saleType;
-    }
-
-    public Date getCheckTime() {
-        return checkTime;
-    }
-
-    public void setCheckTime(Date checkTime) {
-        this.checkTime = checkTime;
-    }
-
-    @NotNull
-    @Size(max = 32)
-    public String getSourceId() {
-        return sourceId;
-    }
-
-    public void setSourceId(String sourceId) {
-        this.sourceId = sourceId;
-    }
-
-    @NotNull
-    public Date getApplyTime() {
-        return applyTime;
-    }
-
-    public void setApplyTime(Date applyTime) {
-        this.applyTime = applyTime;
-    }
-
-    @NotNull
-    public HouseSource getHouseSource() {
-        return houseSource;
-    }
-
-    public void setHouseSource(HouseSource houseSource) {
-        this.houseSource = houseSource;
-    }
+//
+//    @NotNull
+//    public HouseSource getHouseSource() {
+//        return houseSource;
+//    }
+//
+//    public void setHouseSource(HouseSource houseSource) {
+//        this.houseSource = houseSource;
+//    }
 
     @JsonProperty("USE_TYPE")
     @NotNull
@@ -366,13 +297,12 @@ public class HouseSaleInfo implements java.io.Serializable{
         this.address = address;
     }
 
-    @NotNull
-    @Size(max = 200)
-    public String getSaleTitle() {
-        return saleTitle;
+
+    public Set<HouseSalePic> getHouseSalePics() {
+        return houseSalePics;
     }
 
-    public void setSaleTitle(String saleTitle) {
-        this.saleTitle = saleTitle;
+    public void setHouseSalePics(Set<HouseSalePic> houseSalePics) {
+        this.houseSalePics = houseSalePics;
     }
 }
