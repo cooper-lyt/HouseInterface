@@ -13,6 +13,12 @@ public class HouseSourceCompany implements java.io.Serializable{
     public HouseSourceCompany() {
     }
 
+    public HouseSourceCompany(String id, String groupId, HouseSource houseSource) {
+        this.id = id;
+        this.groupId = groupId;
+        this.houseSource = houseSource;
+    }
+
     public String getId() {
         return id;
     }

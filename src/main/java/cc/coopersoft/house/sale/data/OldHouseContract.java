@@ -1,9 +1,11 @@
 package cc.coopersoft.house.sale.data;
 
+import com.dgsoft.house.PoolType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 /**
  * Created by cooper on 9/27/16.
@@ -13,6 +15,7 @@ public class OldHouseContract implements java.io.Serializable {
 
     private String id;
     private boolean control;
+    private PoolType sellerPoolType;
 
     @JsonIgnore
     private HouseContract houseContract;
@@ -50,5 +53,14 @@ public class OldHouseContract implements java.io.Serializable {
 
     public void setControl(boolean control) {
         this.control = control;
+    }
+
+
+    public PoolType getSellerPoolType() {
+        return sellerPoolType;
+    }
+
+    public void setSellerPoolType(PoolType sellerPoolType) {
+        this.sellerPoolType = sellerPoolType;
     }
 }

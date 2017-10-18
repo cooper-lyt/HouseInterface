@@ -1,7 +1,6 @@
 package cc.coopersoft.comm;
 
 import cc.coopersoft.comm.exception.HttpApiServerException;
-import com.dgsoft.developersale.wsinterface.DESUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -23,11 +22,15 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by cooper on 9/25/16.
  */
 public class HttpJsonDataGet {
+
+    private static Logger log = Logger.getLogger(HttpJsonDataGet.class.getName());
 
     private interface JsonParser{
 
@@ -70,14 +73,18 @@ public class HttpJsonDataGet {
     }
 
 
+    public static <T> T httpPostJsonData(String address,Map<String,String> urlParams, Map<String,String> postParams ,JsonParser jsonParser) throws HttpApiServerException {
+        return httpPostJsonData(paramsToUrl(address, urlParams),postParams,jsonParser);
+    }
 
-    public static <T> T httpPostJsonData(String address,Map<String,String> params ,JsonParser jsonParser) throws HttpApiServerException {
+    public static <T> T httpPostJsonData(String address,Map<String,String> postParams ,JsonParser jsonParser) throws HttpApiServerException {
 
         List<NameValuePair> values = new ArrayList<NameValuePair>();
-        for(Map.Entry<String,String> entry: params.entrySet()){
+        for(Map.Entry<String,String> entry: postParams.entrySet()){
             values.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
         try {
+            Logger.getLogger(HttpJsonDataGet.class.getName()).config("post to address:" + address);
             HttpPost httpPost = new HttpPost(address);
             try {
                 httpPost.setHeader("Accept-Charset", "UTF-8");
@@ -92,11 +99,11 @@ public class HttpJsonDataGet {
                 try {
                     HttpResponse httpResponse = closeableHttpClient.execute(httpPost);
                     int responseCode = httpResponse.getStatusLine().getStatusCode();
-
+                    Logger.getLogger(HttpJsonDataGet.class.getName()).config("post responseCode:" + responseCode);
                     if (responseCode == HttpStatus.SC_MOVED_PERMANENTLY
                             || responseCode == HttpStatus.SC_MOVED_TEMPORARILY) {
 
-                        return httpPostJsonData(httpResponse.getLastHeader("Location").getValue(), params, jsonParser);
+                        return httpPostJsonData(httpResponse.getLastHeader("Location").getValue(), postParams, jsonParser);
                     } else {
                         if (HttpStatus.SC_OK == responseCode) {
                             return jsonParser.readValue(httpResponse.getEntity().getContent());
@@ -117,9 +124,7 @@ public class HttpJsonDataGet {
         }
     }
 
-
-
-    public static <T> T httpGetJsonData(String address,Map<String,String> params,JsonParser jsonParser) throws HttpApiServerException {
+    private static String paramsToUrl(String address, Map<String,String> params){
         String paramStr = "";
 
         if (params != null ) {
@@ -132,8 +137,15 @@ public class HttpJsonDataGet {
                 paramStr += entry.getKey() + "=" + entry.getValue();
             }
         }
+
+        return address + paramStr;
+    }
+
+
+    public static <T> T httpGetJsonData(String address,Map<String,String> params,JsonParser jsonParser) throws HttpApiServerException {
+
         try {
-            HttpGet httpGet = new HttpGet(address + paramStr);
+            HttpGet httpGet = new HttpGet(paramsToUrl(address,params));
             try {
 
                 httpGet.setHeader("Accept-Charset", "UTF-8");
@@ -165,16 +177,22 @@ public class HttpJsonDataGet {
 
 
         } catch (MalformedURLException e) {
+            log.log(Level.WARNING,e.getMessage(),e);
             throw new HttpApiServerException(e);
         } catch (UnsupportedEncodingException e) {
+            log.log(Level.WARNING,e.getMessage(),e);
             throw new HttpApiServerException(e);
         } catch (JsonParseException e) {
+            log.log(Level.WARNING,e.getMessage(),e);
             throw new HttpApiServerException(e);
         } catch (JsonMappingException e) {
+            log.log(Level.WARNING,e.getMessage(),e);
             throw new HttpApiServerException(e);
         } catch (ClientProtocolException e) {
+            log.log(Level.WARNING,e.getMessage(),e);
             throw new HttpApiServerException(e);
         } catch (IOException e) {
+            log.log(Level.WARNING,e.getMessage(),e);
             throw new HttpApiServerException(e);
         }
     }
@@ -187,14 +205,21 @@ public class HttpJsonDataGet {
         return httpGetJsonData(address,params, new JsonClassParser<T>(valueType));
     }
 
-    public static <T> T postData(String address,Map<String,String> params, Class<T> valueType) throws HttpApiServerException{
-        return httpPostJsonData(address,params, new JsonClassParser(valueType));
+    public static <T> T postData(String address,Map<String,String> postParams, Class<T> valueType) throws HttpApiServerException{
+        return httpPostJsonData(address,postParams, new JsonClassParser(valueType));
     }
 
-    public static <T> T postData(String address,Map<String,String> params, JavaType valueType) throws HttpApiServerException{
-        return httpPostJsonData(address,params, new JsonTypeParser(valueType));
+    public static <T> T postData(String address,Map<String,String> urlParams ,Map<String,String> postParams, Class<T> valueType) throws HttpApiServerException{
+        return httpPostJsonData(address,urlParams,postParams, new JsonClassParser(valueType));
     }
 
+    public static <T> T postData(String address,Map<String,String> postParams, JavaType valueType) throws HttpApiServerException{
+        return httpPostJsonData(address,postParams, new JsonTypeParser(valueType));
+    }
+
+    public static <T> T postData(String address,Map<String,String> urlParams,Map<String,String> postParams, JavaType valueType) throws HttpApiServerException{
+        return httpPostJsonData(address,urlParams,postParams, new JsonTypeParser(valueType));
+    }
 
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));

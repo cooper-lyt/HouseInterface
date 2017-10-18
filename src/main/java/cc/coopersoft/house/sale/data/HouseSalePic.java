@@ -10,9 +10,18 @@ public class HouseSalePic implements java.io.Serializable {
     private String id;
     private String title;
     private String description;
-
+    private int pri;
     @JsonIgnore
     private HouseSaleInfo houseSaleInfo;
+
+    public HouseSalePic() {
+    }
+
+    public HouseSalePic(String id, String title, HouseSaleInfo houseSaleInfo) {
+        this.id = id;
+        this.title = title;
+        this.houseSaleInfo = houseSaleInfo;
+    }
 
     public String getId() {
         return id;
@@ -44,5 +53,13 @@ public class HouseSalePic implements java.io.Serializable {
 
     public void setHouseSaleInfo(HouseSaleInfo houseSaleInfo) {
         this.houseSaleInfo = houseSaleInfo;
+    }
+
+    public int getPri() {
+        return pri;
+    }
+
+    public void setPri(int pri) {
+        this.pri = pri;
     }
 }

@@ -16,6 +16,8 @@ public class LoginResult {
 
     private AttrEmp attrEmp;
 
+    private String key;
+
     @JsonProperty("result")
     public LogonStatus getLogonStatus() {
         return logonStatus;
@@ -41,6 +43,14 @@ public class LoginResult {
 
     public void setAttrEmp(AttrEmp attrEmp) {
         this.attrEmp = attrEmp;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getToken() {

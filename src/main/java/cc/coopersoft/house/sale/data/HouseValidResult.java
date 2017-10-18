@@ -15,41 +15,10 @@ public class HouseValidResult {
         SUCCESS, HOUSE_NOT_FOUND, OWNER_FAIL, ERROR
     }
 
-    public static class Limit{
-
-        public Limit() {
-        }
-
-        public Limit(LockType lockType, String description) {
-            this.lockType = lockType;
-            this.description = description;
-        }
-
-        private LockType lockType;
-        private String description;
-
-        @JsonProperty("TYPE")
-        public LockType getLockType() {
-            return lockType;
-        }
-
-        public void setLockType(LockType lockType) {
-            this.lockType = lockType;
-        }
-
-        @JsonProperty("DESCRIPTION")
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-    }
 
     private ValidStatus validStatus;
     private HouseSource houseSource;
-    private List<Limit> limits = new ArrayList<Limit>();
+    private List<SellLimit> limits = new ArrayList<SellLimit>();
 
 
     public ValidStatus getValidStatus() {
@@ -68,11 +37,11 @@ public class HouseValidResult {
         this.houseSource = houseSource;
     }
 
-    public List<Limit> getLimits() {
+    public List<SellLimit> getLimits() {
         return limits;
     }
 
-    public void setLimits(List<Limit> limits) {
+    public void setLimits(List<SellLimit> limits) {
         this.limits = limits;
     }
 }

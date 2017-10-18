@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -45,7 +46,7 @@ public class HouseSaleInfo implements java.io.Serializable{
     private String structure;
     private String address;
 
-    private Set<HouseSalePic> houseSalePics;
+    private Set<HouseSalePic> houseSalePics = new HashSet<HouseSalePic>(0);
 
     public HouseSaleInfo() {
     }

@@ -19,7 +19,8 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     }
 
     public enum HouseSourceStatus{
-        SUBMIT,PREPARE,CHECK,CANCEL,SELL,SHOWING,CHECK_PASS
+        //合同提交，建立，房源审核中， 取消， 已销售，展示中，房源审核通过, 审核失败
+        SUBMIT,PREPARE,CHECK,CANCEL,SELL,SHOWING,CHECK_PASS,CHECK_FAIL
     }
 
     public HouseSource() {
@@ -55,6 +56,11 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     private String searchKey;
     private String saleTitle;
     private Date checkTime;
+    private Date updateTime;
+
+    private String businessId;
+
+    private String messages;
 
     @JsonIgnore
     private HouseContract houseContract;
@@ -234,6 +240,15 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     }
 
     @NotNull
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @NotNull
     @Size(max = 200)
     public String getSaleTitle() {
         return saleTitle;
@@ -258,6 +273,22 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
 
     public void setHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
+    }
+
+    public String getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId;
+    }
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
     }
 
 }
