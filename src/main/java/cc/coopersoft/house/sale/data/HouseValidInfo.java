@@ -1,5 +1,6 @@
 package cc.coopersoft.house.sale.data;
 
+import cc.coopersoft.house.HousePowerCard;
 import com.dgsoft.common.system.PersonEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -26,7 +27,6 @@ public class HouseValidInfo implements PersonEntity, java.io.Serializable {
     private String credentialsNumber;
     private String powerCardNumber;
     private String personName;
-    private String tel;
 
 
     private ValidType validType;
@@ -39,6 +39,7 @@ public class HouseValidInfo implements PersonEntity, java.io.Serializable {
     private String unitNumber;
 
     private String houseCode;
+    private HousePowerCard powerCardType;
 
     @JsonView(HouseValidInfo.class)
     @JsonProperty("credentialsNumber")
@@ -150,13 +151,14 @@ public class HouseValidInfo implements PersonEntity, java.io.Serializable {
         this.personName = personName;
     }
 
+
     @JsonView(HouseValidInfo.class)
-    @JsonProperty("tel")
-    public String getTel() {
-        return tel;
+    @JsonProperty("powerCardType")
+    public HousePowerCard getPowerCardType() {
+        return powerCardType;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setPowerCardType(HousePowerCard powerCardType) {
+        this.powerCardType = powerCardType;
     }
 }

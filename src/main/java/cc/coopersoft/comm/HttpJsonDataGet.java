@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -13,13 +14,17 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,6 +34,48 @@ import java.util.logging.Logger;
  * Created by cooper on 9/25/16.
  */
 public class HttpJsonDataGet {
+
+    private static class FileUploadResult{
+        public int size;
+
+        public String name;
+
+        public String error;
+
+        public String fid;
+
+        public int getSize() {
+            return size;
+        }
+
+        public void setSize(int size) {
+            this.size = size;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public String getFid() {
+            return fid;
+        }
+
+        public void setFid(String fid) {
+            this.fid = fid;
+        }
+    }
 
     private static Logger log = Logger.getLogger(HttpJsonDataGet.class.getName());
 
@@ -72,6 +119,46 @@ public class HttpJsonDataGet {
         return mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
     }
 
+    public static String putFile(String address,byte[] file,String userId, String rnd, String digest) throws HttpApiServerException {
+        CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
+        HttpEntity requestEntity = MultipartEntityBuilder.create().addBinaryBody("file",file, ContentType.APPLICATION_OCTET_STREAM,"file").build();
+        Map<String,String> urlParams = new HashMap<String, String>(3);
+        urlParams.put("uid",userId);
+        urlParams.put("rnd",rnd);
+        urlParams.put("digest",digest);
+
+        HttpPost post = new HttpPost(paramsToUrl(address, urlParams));
+
+        post.setHeader("Access-Control-Allow-Origin","*");
+        post.setHeader("Access-Control-Allow-Credentials","true");
+        post.setHeader("Access-Control-Allow-Methods","GET, POST, OPTIONS");
+        post.setHeader("Access-Control-Allow-Headers","DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type");
+        post.setEntity(requestEntity);
+        try {
+            HttpResponse httpResponse = closeableHttpClient.execute(post);
+
+            int responseCode = httpResponse.getStatusLine().getStatusCode();
+            if (responseCode == HttpStatus.SC_MOVED_PERMANENTLY
+                    || responseCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+                return putFile(httpResponse.getLastHeader("Location").getValue(),file,userId,rnd,digest);
+            } else {
+                if (HttpStatus.SC_OK == responseCode) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    FileUploadResult result = mapper.readValue(httpResponse.getEntity().getContent(),FileUploadResult.class);
+                    //String result = EntityUtils.toString(httpResponse.getEntity());
+                    EntityUtils.consume(httpResponse.getEntity());
+                    return result.getFid();
+                } else {
+                    throw new HttpApiServerException(responseCode);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new HttpApiServerException(e);
+        }
+
+
+    }
 
     public static <T> T httpPostJsonData(String address,Map<String,String> urlParams, Map<String,String> postParams ,JsonParser jsonParser) throws HttpApiServerException {
         return httpPostJsonData(paramsToUrl(address, urlParams),postParams,jsonParser);
@@ -106,7 +193,9 @@ public class HttpJsonDataGet {
                         return httpPostJsonData(httpResponse.getLastHeader("Location").getValue(), postParams, jsonParser);
                     } else {
                         if (HttpStatus.SC_OK == responseCode) {
-                            return jsonParser.readValue(httpResponse.getEntity().getContent());
+                            T result = jsonParser.readValue(httpResponse.getEntity().getContent());
+                            EntityUtils.consume(httpResponse.getEntity());
+                            return result;
                         } else {
                             throw new HttpApiServerException(responseCode);
                         }
@@ -163,7 +252,9 @@ public class HttpJsonDataGet {
                         return httpGetJsonData(httpResponse.getLastHeader("Location").getValue(),params,jsonParser);
                     } else {
                         if (HttpStatus.SC_OK == responseCode) {
-                            return jsonParser.readValue(httpResponse.getEntity().getContent());
+                            T result = jsonParser.readValue(httpResponse.getEntity().getContent());
+                            EntityUtils.consume(httpResponse.getEntity());
+                            return result;
                         } else {
                             throw new HttpApiServerException(responseCode);
                         }

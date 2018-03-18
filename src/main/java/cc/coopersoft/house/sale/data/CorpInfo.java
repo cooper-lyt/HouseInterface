@@ -1,5 +1,7 @@
 package cc.coopersoft.house.sale.data;
 
+import com.dgsoft.common.system.PersonEntity;
+import com.dgsoft.common.system.PowerPersonEntity;
 import com.dgsoft.house.AttachCorpType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -17,6 +19,15 @@ public class CorpInfo {
     private String id;
     private String name;
     private Date dateTo;
+
+    private String ownerName;
+    private PersonEntity.CredentialsType credentialsType;
+    private String credentialsNumber;
+    private String address;
+    private String tel;
+    private PowerPersonEntity.LegalType legalType;
+
+    private String ownerTel;
 
 
     @JsonProperty("ID")
@@ -44,5 +55,68 @@ public class CorpInfo {
 
     public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
+    }
+
+    @JsonProperty("OWNER_NAME")
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    @JsonProperty("CREDENTIALS_TYPE")
+    public PersonEntity.CredentialsType getCredentialsType() {
+        return credentialsType;
+    }
+
+    public void setCredentialsType(PersonEntity.CredentialsType credentialsType) {
+        this.credentialsType = credentialsType;
+    }
+
+    @JsonProperty("LICENSE_NUMBER")
+    public String getCredentialsNumber() {
+        return credentialsNumber;
+    }
+
+    public void setCredentialsNumber(String credentialsNumber) {
+        this.credentialsNumber = credentialsNumber;
+    }
+
+    @JsonProperty("ADDRESS")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @JsonProperty("TEL")
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    @JsonProperty("LEGAL_TYPE")
+    public PowerPersonEntity.LegalType getLegalType() {
+        return legalType;
+    }
+
+    public void setLegalType(PowerPersonEntity.LegalType legalType) {
+        this.legalType = legalType;
+    }
+
+    @JsonProperty("OWNER_TEL")
+    public String getOwnerTel() {
+        return ownerTel;
+    }
+
+    public void setOwnerTel(String ownerTel) {
+        this.ownerTel = ownerTel;
     }
 }

@@ -1,7 +1,6 @@
 package cc.coopersoft.house.sale.data;
 
-import cc.coopersoft.house.UseType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
@@ -17,6 +16,10 @@ import java.util.Set;
 
 public class HouseSaleInfo implements java.io.Serializable{
 
+    public enum ShowAreaType{
+        TO_END_TIME,TO_SELL
+    }
+
     private String id;
 
     private String title;
@@ -28,7 +31,7 @@ public class HouseSaleInfo implements java.io.Serializable{
     private Integer zoom;
     private int roomCount;
     private int livingRoom;
-    private String district;
+
     private String localArea;
     private String schoolArea;
     private String metroArea;
@@ -39,12 +42,19 @@ public class HouseSaleInfo implements java.io.Serializable{
     private String cover;
     private int inFloor;
 
-    private UseType useType;
-    private String inFloorName;
-    private BigDecimal houseArea;
-    private BigDecimal useArea;
-    private String structure;
+
     private String address;
+
+
+    private int floorCount;
+    private int kitchenCount;
+    private int toiletCount;
+
+    private ShowAreaType showAreaType;
+    private Date endTime;
+    private BigDecimal price;
+    private BigDecimal sumPrice;
+
 
     private Set<HouseSalePic> houseSalePics = new HashSet<HouseSalePic>(0);
 
@@ -138,16 +148,7 @@ public class HouseSaleInfo implements java.io.Serializable{
         this.livingRoom = livingRoom;
     }
 
-    @JsonProperty("DISTRICT_CODE")
-    @Size(max = 32)
-    @NotNull
-    public String getDistrict() {
-        return district;
-    }
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
 
     @Size(max = 32)
     public String getLocalArea() {
@@ -236,56 +237,9 @@ public class HouseSaleInfo implements java.io.Serializable{
 //        this.houseSource = houseSource;
 //    }
 
-    @JsonProperty("USE_TYPE")
-    @NotNull
-    public UseType getUseType() {
-        return useType;
-    }
 
-    public void setUseType(UseType useType) {
-        this.useType = useType;
-    }
 
-    @JsonProperty("IN_FLOOR_NAME")
-    @NotNull
-    @Size(max = 50)
-    public String getInFloorName() {
-        return inFloorName;
-    }
 
-    public void setInFloorName(String inFloorName) {
-        this.inFloorName = inFloorName;
-    }
-
-    @JsonProperty("HOUSE_AREA")
-    @NotNull
-    public BigDecimal getHouseArea() {
-        return houseArea;
-    }
-
-    public void setHouseArea(BigDecimal houseArea) {
-        this.houseArea = houseArea;
-    }
-
-    @JsonProperty("USE_AREA")
-    public BigDecimal getUseArea() {
-        return useArea;
-    }
-
-    public void setUseArea(BigDecimal useArea) {
-        this.useArea = useArea;
-    }
-
-    @JsonProperty("STRUCTURE")
-    @NotNull
-    @Size(max = 32)
-    public String getStructure() {
-        return structure;
-    }
-
-    public void setStructure(String structure) {
-        this.structure = structure;
-    }
 
     @JsonProperty("ADDRESS")
     @NotNull
@@ -306,4 +260,64 @@ public class HouseSaleInfo implements java.io.Serializable{
     public void setHouseSalePics(Set<HouseSalePic> houseSalePics) {
         this.houseSalePics = houseSalePics;
     }
+
+
+
+    @JsonProperty("FLOOR_COUNT")
+    public int getFloorCount() {
+        return floorCount;
+    }
+
+    public void setFloorCount(int floorCount) {
+        this.floorCount = floorCount;
+    }
+
+    public int getKitchenCount() {
+        return kitchenCount;
+    }
+
+    public void setKitchenCount(int kitchenCount) {
+        this.kitchenCount = kitchenCount;
+    }
+
+    public int getToiletCount() {
+        return toiletCount;
+    }
+
+    public void setToiletCount(int toiletCount) {
+        this.toiletCount = toiletCount;
+    }
+
+    public ShowAreaType getShowAreaType() {
+        return showAreaType;
+    }
+
+    public void setShowAreaType(ShowAreaType showAreaType) {
+        this.showAreaType = showAreaType;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getSumPrice() {
+        return sumPrice;
+    }
+
+    public void setSumPrice(BigDecimal sumPrice) {
+        this.sumPrice = sumPrice;
+    }
+
 }

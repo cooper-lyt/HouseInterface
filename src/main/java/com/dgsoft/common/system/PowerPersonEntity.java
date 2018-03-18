@@ -10,7 +10,13 @@ public interface PowerPersonEntity extends OwnerPersonEntity {
 
 
     public enum LegalType{
-        LEGAL_OWNER,LEGAL_MANAGER
+        LEGAL_OWNER(true),OWNER_PARTNER(true) ,LEGAL_MANAGER(false);
+
+        private boolean owner;
+
+        LegalType(boolean owner) {
+            this.owner = owner;
+        }
     }
 
     BigDecimal getPoolPerc();

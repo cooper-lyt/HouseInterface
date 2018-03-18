@@ -3,10 +3,8 @@ package cc.coopersoft.house.sale;
 import cc.coopersoft.comm.District;
 import cc.coopersoft.comm.HttpJsonDataGet;
 import cc.coopersoft.comm.exception.HttpApiServerException;
-import cc.coopersoft.house.sale.data.HouseValidResult;
-import cc.coopersoft.house.sale.data.HouseValidInfo;
-import cc.coopersoft.house.sale.data.LoginResult;
-import cc.coopersoft.house.sale.data.SaleArea;
+import cc.coopersoft.house.sale.data.*;
+import com.dgsoft.common.system.wsinterface.WordDictionaryService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +18,7 @@ import java.util.*;
 public class HouseSellService {
 
     public static List<District> listDistrict(String address) throws HttpApiServerException {
-        address += "/api/list-district";
+        address += "/api/public/list-district";
 
         List<District> result = HttpJsonDataGet.getData(address,null,HttpJsonDataGet.getCollectionType(ArrayList.class, District.class));
         Collections.sort(result, new Comparator<District>() {
@@ -34,6 +32,14 @@ public class HouseSellService {
     public static List<SaleArea> listAllSaleArea(String address) throws HttpApiServerException{
         address += "/api/public/list-sale-area";
         List<SaleArea> result = HttpJsonDataGet.getData(address,null, HttpJsonDataGet.getCollectionType(ArrayList.class, SaleArea.class));
+        return result;
+    }
+
+    public static List<Word> getWord(String address,String category) throws HttpApiServerException{
+        address += "/api/public/list-word-key";
+        Map<String,String> params = new HashMap<String, String>(1);
+        params.put("type",category);
+        List<Word> result = HttpJsonDataGet.getData(address,params, HttpJsonDataGet.getCollectionType(ArrayList.class, Word.class));
         return result;
     }
 
@@ -61,8 +67,6 @@ public class HouseSellService {
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("houseValidInfo to json fail",e);
         }
-
-
     }
 
 }

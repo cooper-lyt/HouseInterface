@@ -54,6 +54,11 @@ public class HouseContract implements java.io.Serializable {
     @JsonIgnore
     private String contractIndex;
 
+    @JsonIgnore
+    private Date commitTime;
+
+    private String fileId;
+
 
     public HouseContract() {
     }
@@ -274,6 +279,21 @@ public class HouseContract implements java.io.Serializable {
     }
 
 
+    public Date getCommitTime() {
+        return commitTime;
+    }
+
+    public void setCommitTime(Date commitTime) {
+        this.commitTime = commitTime;
+    }
+
+    public String getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
 
     public int getVersion() {
         return version;

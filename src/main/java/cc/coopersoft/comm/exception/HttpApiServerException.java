@@ -8,6 +8,7 @@ public class HttpApiServerException extends Exception {
     private int httpStatus;
 
     public HttpApiServerException(int httpStatus) {
+        super("code:" + httpStatus);
         this.httpStatus = httpStatus;
     }
 

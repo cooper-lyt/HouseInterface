@@ -1,24 +1,31 @@
 package cc.coopersoft.house.sale.data;
 
+import cc.coopersoft.house.ProxyType;
 import com.dgsoft.common.system.PersonEntity;
+import com.dgsoft.common.system.ProxyPersonEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by cooper on 24/04/2017.
  */
-public class HouseSourceProxyPerson implements PersonEntity, java.io.Serializable{
+public class HouseSourceProxyPerson implements ProxyPersonEntity, java.io.Serializable{
 
 
     private String id;
     private CredentialsType credentialsType;
     private String credentialsNumber;
     private String personName;
-    private String tel;
+    private String phone;
+    private ProxyType proxyType;
+    private String address;
 
-    @JsonIgnore
-    private HouseSource houseSource;
+
 
     public HouseSourceProxyPerson() {
+    }
+
+    public HouseSourceProxyPerson(String id) {
+        this.id = id;
     }
 
     public String getId() {
@@ -53,19 +60,28 @@ public class HouseSourceProxyPerson implements PersonEntity, java.io.Serializabl
         this.personName = personName;
     }
 
-    public String getTel() {
-        return tel;
+
+    public String getAddress() {
+        return address;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public HouseSource getHouseSource() {
-        return houseSource;
+    public ProxyType getProxyType() {
+        return proxyType;
     }
 
-    public void setHouseSource(HouseSource houseSource) {
-        this.houseSource = houseSource;
+    public void setProxyType(ProxyType proxyType) {
+        this.proxyType = proxyType;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

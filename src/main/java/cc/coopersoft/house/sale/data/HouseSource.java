@@ -1,26 +1,51 @@
 package cc.coopersoft.house.sale.data;
 
+import cc.coopersoft.house.HousePowerCard;
+import cc.coopersoft.house.UseType;
+import com.dgsoft.common.system.OwnerPersonEntity;
 import com.dgsoft.common.system.PersonEntity;
+import com.dgsoft.common.system.ProxyPersonEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by cooper on 23/02/2017.
  */
-public class HouseSource implements PersonEntity, java.io.Serializable{
+public class HouseSource implements OwnerPersonEntity, java.io.Serializable{
+
+    @JsonIgnore
+    public ProxyPersonEntity getPowerProxyPerson() {
+        return getProxyPerson();
+    }
+
+    @JsonIgnore
+    public void setPowerProxyPerson(ProxyPersonEntity proxyPerson) {
+        setProxyPerson((HouseSourceProxyPerson) proxyPerson);
+    }
 
     public enum SaleType{
         DEVELOPER,SELLER;
     }
 
     public enum HouseSourceStatus{
-        //合同提交，建立，房源审核中， 取消， 已销售，展示中，房源审核通过, 审核失败
-        SUBMIT,PREPARE,CHECK,CANCEL,SELL,SHOWING,CHECK_PASS,CHECK_FAIL
+        //签约合同提交，建立，房源审核中， 取消， 已销售，展示中，房源审核通过
+
+        SUBMIT,PREPARE,CHECK,
+        // CANCEL,
+        // SELL,
+        SHOWING,
+        //CHECK_PASS
+    }
+
+    public enum MessageType{
+        CHECK_FAIL,CANCEL
     }
 
     public HouseSource() {
@@ -33,7 +58,7 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
         this.credentialsNumber = validInfo.getCredentialsNumber();
         this.credentialsType = validInfo.getCredentialsType();
         this.personName = validInfo.getPersonName();
-        this.tel = validInfo.getTel();
+        this.powerCardType = validInfo.getPowerCardType();
         this.houseSaleInfo = houseSaleInfo;
     }
 
@@ -41,6 +66,7 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     private String id;
 
     private String powerCardNumber;
+    private HousePowerCard powerCardType;
     private CredentialsType credentialsType;
     private String credentialsNumber;
     private String personName;
@@ -53,24 +79,41 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     private SaleType saleType;
     private Date applyTime;
     private HouseSourceStatus status;
-    private String searchKey;
-    private String saleTitle;
+
     private Date checkTime;
     private Date updateTime;
+    private boolean allowJoin;
 
     private String businessId;
 
     private String messages;
+    private String address;
 
-    @JsonIgnore
-    private HouseContract houseContract;
+    private MessageType messageType;
+
+    private UseType useType;
+    private String designUseType;
+    private String mapNumber;
+    private String blockNumber;
+    private String buildNumber;
+    private String houseOrder;
+    private String structure;
+    private String inFloorName;
+    private Integer floorCount;
+    private String district;
+    private BigDecimal houseArea;
+    private BigDecimal useArea;
+
+
+
+
 
 
     private Long version;
 
     private HouseSaleInfo houseSaleInfo;
     private HouseSourceProxyPerson proxyPerson;
-    private Set<HouseSourceCompany> houseSourceCompanies;
+    private Set<HouseSourceCompany> houseSourceCompanies = new HashSet<HouseSourceCompany>(0);
 
     @NotNull
     @Size(max = 32)
@@ -119,6 +162,17 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
 
     public void setPersonName(String personName) {
         this.personName = personName;
+    }
+
+    @JsonProperty("DISTRICT_CODE")
+    @Size(max = 32)
+    @NotNull
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     @NotNull
@@ -174,10 +228,12 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
         this.proxyPerson = proxyPerson;
     }
 
+    @JsonIgnore
     public Set<HouseSourceCompany> getHouseSourceCompanies() {
         return houseSourceCompanies;
     }
 
+    @JsonIgnore
     public void setHouseSourceCompanies(Set<HouseSourceCompany> houseSourceCompanies) {
         this.houseSourceCompanies = houseSourceCompanies;
     }
@@ -248,32 +304,16 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
         this.updateTime = updateTime;
     }
 
-    @NotNull
-    @Size(max = 200)
-    public String getSaleTitle() {
-        return saleTitle;
+    public MessageType getMessageType() {
+        return messageType;
     }
 
-    public void setSaleTitle(String saleTitle) {
-        this.saleTitle = saleTitle;
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 
-    @JsonIgnore
-    public String getSearchKey() {
-        return searchKey;
-    }
 
-    public void setSearchKey(String searchKey) {
-        this.searchKey = searchKey;
-    }
 
-    public HouseContract getHouseContract() {
-        return houseContract;
-    }
-
-    public void setHouseContract(HouseContract houseContract) {
-        this.houseContract = houseContract;
-    }
 
     public String getBusinessId() {
         return businessId;
@@ -290,5 +330,127 @@ public class HouseSource implements PersonEntity, java.io.Serializable{
     public void setMessages(String messages) {
         this.messages = messages;
     }
+
+    public HousePowerCard getPowerCardType() {
+        return powerCardType;
+    }
+
+    public void setPowerCardType(HousePowerCard powerCardType) {
+        this.powerCardType = powerCardType;
+    }
+
+    public boolean isAllowJoin() {
+        return allowJoin;
+    }
+
+    public void setAllowJoin(boolean allowJoin) {
+        this.allowJoin = allowJoin;
+    }
+
+    @JsonProperty("ADDRESS")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @JsonProperty("USE_TYPE")
+    public UseType getUseType() {
+        return useType;
+    }
+
+    public void setUseType(UseType useType) {
+        this.useType = useType;
+    }
+
+    @JsonProperty("DESIGN_USE_TYPE")
+    public String getDesignUseType() {
+        return designUseType;
+    }
+
+    public void setDesignUseType(String designUseType) {
+        this.designUseType = designUseType;
+    }
+
+    @JsonProperty("MAP_NUMBER")
+    public String getMapNumber() {
+        return mapNumber;
+    }
+
+    public void setMapNumber(String mapNumber) {
+        this.mapNumber = mapNumber;
+    }
+    @JsonProperty("BLOCK_NUMBER")
+    public String getBlockNumber() {
+        return blockNumber;
+    }
+
+    public void setBlockNumber(String blockNumber) {
+        this.blockNumber = blockNumber;
+    }
+    @JsonProperty("BUILD_NUMBER")
+    public String getBuildNumber() {
+        return buildNumber;
+    }
+
+    public void setBuildNumber(String buildNumber) {
+        this.buildNumber = buildNumber;
+    }
+    @JsonProperty("HOUSE_ORDER")
+    public String getHouseOrder() {
+        return houseOrder;
+    }
+
+    public void setHouseOrder(String houseOrder) {
+        this.houseOrder = houseOrder;
+    }
+    @JsonProperty("STRUCTURE")
+    public String getStructure() {
+        return structure;
+    }
+
+    public void setStructure(String structure) {
+        this.structure = structure;
+    }
+
+    @JsonProperty("IN_FLOOR_NAME")
+    public String getInFloorName() {
+        return inFloorName;
+    }
+
+    public void setInFloorName(String inFloorName) {
+        this.inFloorName = inFloorName;
+    }
+
+    @JsonProperty("FLOOR_COUNT")
+    public Integer getFloorCount() {
+        return floorCount;
+    }
+
+    public void setFloorCount(Integer floorCount) {
+        this.floorCount = floorCount;
+    }
+
+    @JsonProperty("HOUSE_AREA")
+    @NotNull
+    public BigDecimal getHouseArea() {
+        return houseArea;
+    }
+
+    public void setHouseArea(BigDecimal houseArea) {
+        this.houseArea = houseArea;
+    }
+
+    @JsonProperty("USE_AREA")
+    public BigDecimal getUseArea() {
+        return useArea;
+    }
+
+    public void setUseArea(BigDecimal useArea) {
+        this.useArea = useArea;
+    }
+
 
 }
